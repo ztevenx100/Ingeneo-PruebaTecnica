@@ -1,0 +1,83 @@
+:root{
+    --bg-body: #30343f;
+    --bg-main: #fafaff;
+    --nav-bg: #FCA311;
+    --table-border: #009FB7;
+    --table-th-bg: #009FB7;
+    --table-th-text: #fff;
+    --table-td-bg: #E4D9FF;
+    --btn-bg: #FCA311;
+    --btn-bg-hover: #ffbc50;
+    
+    --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+}
+
+body{
+    background-color: var(--bg-body);
+}
+
+main{
+    background-color: var(--bg-main);
+}
+
+nav{
+    background-color: var(--nav-bg);
+}
+
+header h1{
+    text-align: center;
+    font-weight: 600;
+}
+
+table{
+    width: 100%;
+    margin: 1.5rem 0;
+    border: 1px solid var(--table-border);
+    border-radius: 0.5rem;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    & thead{
+        background-color: var(--table-th-bg);
+        color: var(--table-th-text);
+        & th{
+            padding: 0.5rem 1rem;
+        }
+    }
+    & tbody{
+        & td{
+            padding: 0.5rem 1rem;
+            background-color: var(--table-td-bg);
+        }
+    }
+}
+
+aside.panel{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 10px 10px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: var(--btn-bg);
+    backdrop-filter: blur(2px);
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: ease;
+    z-index: 5;
+    &:hover{
+        background-color: var(--btn-bg-hover);
+    }
+    & button{
+        width: 100%;
+        height: 100%;
+        /* background-color: var(--btn-bg); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

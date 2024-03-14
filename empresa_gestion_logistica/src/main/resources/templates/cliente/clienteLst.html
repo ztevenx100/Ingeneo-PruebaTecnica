@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Clientes</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <!-- Menu de navegacion -->
+            <nav class="container mx-auto flex justify-between items-center p-4">
+                <a class="text-white font-bold" href="/">Mi Aplicación</a>
+                <menu type="toolbar">
+                    <li class="hidden md:flex space-x-4">
+                        <a class="text-white hover:text-gray-300" href="/cliente">Lista de Clientes</a>
+                    </li>
+                </menu>
+            </nav>
+            <section class="min-h-screen " >
+                
+                <header class="py-4 " >
+                    <h1>Lista de Clientes</h1>
+                </header>
+        
+                <article class="px-4">
+                    <table class="my-6">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo ID</th>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cliente : ${clientes}">
+                                <td th:text="${cliente.id}"></td>
+                                <td th:text="${cliente.tipoId}"></td>
+                                <td th:text="${cliente.nombre}"></td>
+                                <td th:text="${cliente.telefono}"></td>
+                                <td th:text="${cliente.email}"></td>
+                                <td><button type="button">Editar</button></td>
+                                <td><button type="button">Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <aside class="panel">
+                    <button type="button" class="btn-adicionar"> añadir </button>
+                </aside>
+
+            </section>
+        </main>
+    </body>
+    </html>
