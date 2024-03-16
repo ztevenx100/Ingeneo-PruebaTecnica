@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cliente</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <!-- Menu de navegacion -->
+            <nav class="container mx-auto flex justify-between items-center p-4">
+                <a class="text-white font-bold" href="/">Mi Aplicación</a>
+                <menu type="toolbar">
+                    <li class="hidden md:flex space-x-4">
+                        <a class="text-white hover:text-gray-300" href="/cliente">Lista de Clientes</a>
+                    </li>
+                </menu>
+            </nav>
+            <section class="min-h-screen " >
+                
+                <header class="bento-box py-4 " >
+                    <h1>Formulario Cliente</h1>
+                </header>
+        
+                <article class="bento-box p-4">
+                    <form th:object="${cliente}" th:action="@{'/cliente/' + ${action} + '/' + ${cliente.id}} " class="" method="post">
+                        <fieldset class="general-form">
+                            <legend>Formulario</legend>
+                            <input  type="hidden" name="action" th:value="${action}">
+                            <label for="id">Documento:
+                                <input th:if="${action == 'add' }" type="text" th:field="*{id}" required>
+                                <input th:unless="${action == 'add' }" type="text" th:field="*{id}" readonly>
+                            </label>
+                            <label for="tipoId">Tipo de Cliente:
+                                <select id="tipoId" name="tipoId" th:field="*{tipoId}">
+                                    <option value="C">Cedula de ciudadania</option>
+                                    <option value="N">NIT</option>
+                                </select>
+                            </label>
+                            <label for="nombre">Nombre:
+                                <input type="text" th:field="*{nombre}" required>
+                            </label>
+                            <label for="telefono">Telefono:
+                                <input type="text" th:field="*{telefono}" required>
+                            </label>
+                            <label for="email">Correo Electrónico:
+                                <input type="email" th:field="*{email}" required>
+                            </label>
+                            <label for="direccion">direccion:
+                                <input type="text" th:field="*{direccion}" required>
+                            </label>
+                            <button type="submit" class="btn-submit">
+                                <p th:if="${action == 'add' }" >Añadir Cliente</p>
+                                <p th:unless="${action == 'add' }" >Actualizar Cliente</p>
+                            </button>
+                        </fieldset>
+                    </form>
+                </article>
+
+            </section>
+        </main>
+
+        <script>
+            
+        </script>
+
+    </body>
+</html>

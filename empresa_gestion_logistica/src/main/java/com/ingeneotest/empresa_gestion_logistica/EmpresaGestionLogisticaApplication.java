@@ -12,7 +12,7 @@ public class EmpresaGestionLogisticaApplication {
 		SpringApplication.run(EmpresaGestionLogisticaApplication.class, args);
 		System.out.println("- Aplicativo iniciado");
 
-		Cliente vo = new Cliente("1010","C","Pedro","3013013011","pc@gmail.com");
+		Cliente vo = new Cliente("1010","C","Pedro","3013013011","pc@gmail.com", null);
 		System.out.println(vo.toString());
 
 	}

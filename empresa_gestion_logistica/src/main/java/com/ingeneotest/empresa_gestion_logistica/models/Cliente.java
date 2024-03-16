@@ -2,8 +2,6 @@ package com.ingeneotest.empresa_gestion_logistica.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,7 +10,7 @@ import jakarta.persistence.Table;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    //@GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "cli_id")
     private String id;
     @Column(name = "cli_tipo_id")
@@ -23,18 +21,21 @@ public class Cliente {
     private String telefono;
     @Column(name = "cli_email")
     private String email;
+    @Column(name = "cli_direccion")
+    private String direccion;
     
     public Cliente() {
     }
-
-    public Cliente(String id, String tipoId, String nombre, String telefono, String email) {
+    
+    public Cliente(String id, String tipoId, String nombre, String telefono, String email, String direccion) {
         this.id = id;
         this.tipoId = tipoId;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
+        this.direccion = direccion;
     }
-
+    
     public String getId() {
         return id;
     }
@@ -69,7 +70,14 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    public String getDireccion() {
+        return direccion;
+    }
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    
     @Override
     public String toString() {
         return "Cliente [id=" + id + ", tipoId=" + tipoId + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + "]";

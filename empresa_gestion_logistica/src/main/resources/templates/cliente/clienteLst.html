@@ -20,11 +20,11 @@
             </nav>
             <section class="min-h-screen " >
                 
-                <header class="py-4 " >
+                <header class="bento-box py-4 " >
                     <h1>Lista de Clientes</h1>
                 </header>
         
-                <article class="px-4">
+                <article class="bento-box px-4">
                     <table class="my-6">
                         <thead>
                             <tr>
@@ -33,6 +33,7 @@
                                 <th>Nombre</th>
                                 <th>Telefono</th>
                                 <th>Email</th>
+                                <th>dirección</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -44,15 +45,16 @@
                                 <td th:text="${cliente.nombre}"></td>
                                 <td th:text="${cliente.telefono}"></td>
                                 <td th:text="${cliente.email}"></td>
-                                <td><button type="button">Editar</button></td>
-                                <td><button type="button">Eliminar</button></td>
+                                <td th:text="${cliente.direccion}"></td>
+                                <td><a th:href="@{/cliente/upd/{id}(id=${cliente.id})}">Editar</a></td>
+                                <td><a th:href="@{/cliente/eliminar/{id}(id=${cliente.id})}">Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </article>
 
                 <aside class="panel">
-                    <button type="button" class="btn-adicionar"> añadir </button>
+                    <a type="button" class="btn-adicionar" th:href="@{/cliente/add/{id}(id='0')}" > Añadir </a>
                 </aside>
 
             </section>

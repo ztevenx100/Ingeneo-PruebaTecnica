@@ -1,13 +1,16 @@
 :root{
-    --bg-body: #30343f;
-    --bg-main: #fafaff;
-    --nav-bg: #FCA311;
+    --bg-body: #e4d9ff;
+    --bg-main: #e4d9ff;
+    --nav-bg: #fca311;
+    --bento-card-bg: #fafaff;
+    --table-bg: #fafaff;
     --table-border: #009FB7;
     --table-th-bg: #009FB7;
-    --table-th-text: #fff;
-    --table-td-bg: #E4D9FF;
-    --btn-bg: #FCA311;
+    --table-th-text: #fafaff;
+    --table-td-bg: #e4d9ff;
+    --btn-bg: #fca311;
     --btn-bg-hover: #ffbc50;
+    --form-btn-bg: #009FB7;
     
     --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -22,6 +25,8 @@ main{
 }
 
 nav{
+    display: fixed;
+    margin-bottom: 1rem;
     background-color: var(--nav-bg);
 }
 
@@ -46,9 +51,33 @@ table{
     & tbody{
         & td{
             padding: 0.5rem 1rem;
-            background-color: var(--table-td-bg);
+            border: 1px solid var(--table-bg);
+            border-bottom: 2px solid var(--table-border);
         }
     }
+}
+
+fieldset{
+    display: grid;
+    grid-template-columns:  repeat(2, minmax(0, 1fr));
+    column-gap: 0.5rem;
+    row-gap: 1rem;
+    & label{
+        grid-column: span 1 / span 1;
+    }
+    & .btn-submit{
+        width: 100%;
+        grid-column: span 2 / span 2;
+        background-color: var(--form-btn-bg);
+    }
+}
+
+.bento-box{
+    margin-bottom: 1rem;
+    padding: 2rem;
+    background-color: var(--bento-card-bg);
+    border: 1px solid var(--bg-body);
+    border-radius: 10px;
 }
 
 aside.panel{
@@ -72,12 +101,13 @@ aside.panel{
     &:hover{
         background-color: var(--btn-bg-hover);
     }
-    & button{
+    & a{
         width: 100%;
         height: 100%;
         /* background-color: var(--btn-bg); */
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
     }
 }
