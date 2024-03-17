@@ -39,6 +39,7 @@
                                 <th>Telefono</th>
                                 <th>Email</th>
                                 <th>dirección</th>
+                                <th>Estado</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -51,6 +52,7 @@
                                 <td th:text="${cliente.telefono}"></td>
                                 <td th:text="${cliente.email}"></td>
                                 <td th:text="${cliente.direccion}"></td>
+                                <td th:text="${cliente.estado}"></td>
                                 <td><a class="btn-editar" th:href="@{/cliente/upd/{id}(id=${cliente.id})}">Editar</a></td>
                                 <td><a class="btn-eliminar" th:href="@{/cliente/eliminar/{id}(id=${cliente.id})}">Eliminar</a></td>
                             </tr>
@@ -69,8 +71,8 @@
 
         function ini() {
             const celdasDocumento = document.querySelectorAll("#tableCliente tbody tr td:nth-child(2)");
-
-            // Iterar sobre cada celda y reemplazar el carácter "C" por "Cedula de Ciudadania"
+            const celdasEstado = document.querySelectorAll("#tableCliente tbody tr td:nth-child(7)");
+            
             celdasDocumento.forEach(function(celda) {
                 switch (celda.textContent) {
                     case "C":
@@ -79,8 +81,27 @@
                     case "N":
                         celda.textContent = "NIT";
                         break;
+                    case "E":
+                        celda.textContent = "Cedula de Extranjeria";
+                        break;
                     default:
                     celda.textContent = "Documento no identificado";
+                        break;
+                }
+            });
+            celdasEstado.forEach(function(celda) {
+                switch (celda.textContent) {
+                    case "A":
+                        celda.textContent = "Activo";
+                        break;
+                    case "I":
+                        celda.textContent = "Inactivo";
+                        break;
+                    case "E":
+                        celda.textContent = "Retirado";
+                        break;
+                    default:
+                    celda.textContent = "Estado no identificado";
                         break;
                 }
             });

@@ -42,6 +42,7 @@
                                 <select id="tipoId" name="tipoId" th:field="*{tipoId}">
                                     <option value="C">Cedula de ciudadania</option>
                                     <option value="N">NIT</option>
+                                    <option value="E">Cedula de extranjeria</option>
                                 </select>
                             </label>
                             <label for="nombre">Nombre:
@@ -55,6 +56,13 @@
                             </label>
                             <label for="direccion">direccion:
                                 <input type="text" th:field="*{direccion}" required>
+                            </label>
+                            <label for="estado">direccion:
+                                <select id="estado" name="estado" th:field="*{estado}">
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                    <option value="R">Retirado</option>
+                                </select>
                             </label>
                             <button type="submit" class="btn-submit">
                                 <p th:if="${action == 'add' }" >Añadir Cliente</p>
