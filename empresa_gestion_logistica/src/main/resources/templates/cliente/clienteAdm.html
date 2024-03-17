@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cliente</title>
-        <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="/css/styles.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/js/validaciones.js"></script>
     </head>
     <body>
         <main class="container mx-auto" >
@@ -30,31 +31,46 @@
                 </header>
         
                 <article class="bento-box p-4">
-                    <form th:object="${cliente}" th:action="@{'/cliente/' + ${action} + '/' + ${cliente.id}} " class="" method="post">
+                    <form th:object="${cliente}" th:action="@{'/cliente/' + ${action} + '/' + ${cliente.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
                         <fieldset class="general-form">
                             <legend>Formulario</legend>
                             <input  type="hidden" name="action" th:value="${action}">
-                            <label for="id">Documento:
+                            <label for="id">
+                                <span>Documento:</span>
                                 <input th:if="${action == 'add' }" type="text" th:field="*{id}" required>
                                 <input th:unless="${action == 'add' }" type="text" th:field="*{id}" readonly>
                             </label>
-                            <label for="tipoId">Tipo de Cliente:
+                            <label for="tipoId">
+                                <span>Tipo de Cliente:</span>
                                 <select id="tipoId" name="tipoId" th:field="*{tipoId}">
                                     <option value="C">Cedula de ciudadania</option>
                                     <option value="N">NIT</option>
+                                    <option value="E">Cedula de extranjeria</option>
                                 </select>
                             </label>
-                            <label for="nombre">Nombre:
+                            <label for="nombre">
+                                <span class="text-span">Nombre:</span>
                                 <input type="text" th:field="*{nombre}" required>
                             </label>
-                            <label for="telefono">Telefono:
-                                <input type="text" th:field="*{telefono}" required>
+                            <label for="telefono">
+                                <span>Telefono:</span>
+                                <input type="text" th:field="*{telefono}" oninput="validarCampoNumerico(this)" required>
                             </label>
-                            <label for="email">Correo Electrónico:
+                            <label for="email">
+                                <span>Correo Electrónico:</span>
                                 <input type="email" th:field="*{email}" required>
                             </label>
-                            <label for="direccion">direccion:
+                            <label for="direccion">
+                                <span>Direccion:</span>
                                 <input type="text" th:field="*{direccion}" required>
+                            </label>
+                            <label for="estado">
+                                <span>Estado:</span>
+                                <select id="estado" name="estado" th:field="*{estado}">
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                    <option value="R">Retirado</option>
+                                </select>
                             </label>
                             <button type="submit" class="btn-submit">
                                 <p th:if="${action == 'add' }" >Añadir Cliente</p>
@@ -68,7 +84,30 @@
         </main>
 
         <script>
-            
+            ini();
+
+            function ini() {
+                
+            }
+
+            function enviarFormulario(event) {
+                event.preventDefault();
+                const form = document.forms[0];
+
+                if (validarFormulario(form)) {
+                    form.submit();
+                } else {
+                    alert("Por favor, complete todos los campos correctamente.");
+                }
+            }
+
+            function validarFormulario(form) {
+                let validar = true;
+
+                validar &= validarCamposRequeridos();
+
+                return validar;
+            }
         </script>
 
     </body>
