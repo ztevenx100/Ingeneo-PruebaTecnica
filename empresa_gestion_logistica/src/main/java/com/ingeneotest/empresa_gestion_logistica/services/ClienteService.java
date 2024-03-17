@@ -8,7 +8,7 @@ import com.ingeneotest.empresa_gestion_logistica.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClienteService {
+public class ClienteService implements ClienteServiceInterface {
 
     private ClienteRepository clienteRepository;
 
@@ -16,25 +16,22 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
+    @Override
     public List<Cliente> obtenerTodosClientes() {
-        //List<Cliente> l = new LinkedList<Cliente>();
-        //return l;
         return clienteRepository.findAll();
     }
 
+    @Override
     public Optional<Cliente> obtenerClientePorId(String id) {
-        //Cliente vo = new Cliente();
-        //Optional<Cliente> vo = Optional.of(new Cliente());
-        //return vo;
         return clienteRepository.findById(id);
     }
 
+    @Override
     public Cliente guardarCliente(Cliente cliente) {
-        //Cliente vo = new Cliente();
-        //return vo;
         return clienteRepository.save(cliente);
     }
 
+    @Override
     public void eliminarCliente(String id) {
         clienteRepository.deleteById(id);
     }

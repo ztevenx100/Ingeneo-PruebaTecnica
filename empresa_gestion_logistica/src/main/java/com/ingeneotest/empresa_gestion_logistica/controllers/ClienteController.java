@@ -4,29 +4,27 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.ingeneotest.empresa_gestion_logistica.models.Cliente;
-import com.ingeneotest.empresa_gestion_logistica.services.ClienteService;
+import com.ingeneotest.empresa_gestion_logistica.services.ClienteServiceInterface;
 
 
 @Controller
 //@RequestMapping("/cliente")
-public class ClienteController {
-    private final ClienteService clienteService;
+public class ClienteController implements ClienteControllerInterface {
+    private final ClienteServiceInterface clienteService;
 
     @Autowired
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteServiceInterface clienteService) {
         this.clienteService = clienteService;
     }
 
+    @Override
     @GetMapping("/cliente")
     //ResponseEntity<List<Cliente>>
     public String obtenerTodosClientes(Model model) {
@@ -44,6 +42,7 @@ public class ClienteController {
         return path;
     }
 
+    @Override
     @GetMapping("/cliente/{action}/{id}")
     public String obtenerClientePorId(@PathVariable String action, @PathVariable("id") String id, Model model) {
         Optional<Cliente> cliente = null;
@@ -64,6 +63,7 @@ public class ClienteController {
         return path;
     }
     
+    @Override
     @PostMapping("/cliente/{action}/{id}")
     // ResponseEntity<Cliente>
     public String guardarCliente(@PathVariable String action, @PathVariable String id, @ModelAttribute Cliente cliente, Model model) {
@@ -80,9 +80,17 @@ public class ClienteController {
         return path;
     }
 
-    @DeleteMapping("/cliente/eliminar/{id}")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable("id") String id, Model model) {
-        clienteService.eliminarCliente(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @Override
+    @GetMapping("/cliente/eliminar/{id}")
+    public String eliminarCliente(@PathVariable("id") String id, Model model) {
+        System.out.println("delete - eliminarCliente - id; " + id);
+        String path = "cliente/clienteLst";
+        try {
+            clienteService.eliminarCliente(id);
+            path = "redirect:/cliente";
+        } catch (Exception e) {
+            path = "error";
+        }
+        return path;
     }
 }

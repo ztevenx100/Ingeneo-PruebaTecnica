@@ -10,6 +10,8 @@
     --table-td-bg: #e4d9ff;
     --btn-bg: #fca311;
     --btn-bg-hover: #ffbc50;
+    --btn-bg-upd: #fca311;
+    --btn-bg-del: #C42021;
     --form-btn-bg: #009FB7;
     
     --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -28,6 +30,35 @@ nav{
     display: fixed;
     margin-bottom: 1rem;
     background-color: var(--nav-bg);
+    & .popper{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        & .btn-toggle{
+            width: 10rem;
+            padding: 1px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            &:hover + .popper-content{
+                display: block;
+                visibility: visible;
+            }
+        }
+        & .popper-content{
+            visibility: hidden;
+            position: fixed;
+            padding: 1rem;
+            background-color: var(--nav-bg);
+            top: 4rem;
+            border-radius: 5px;
+            transition-property: visibility;
+            transition-duration: .5s;
+            transition-timing-function: ease;
+            &:hover{
+                visibility: visible;
+            }
+        }
+    }
 }
 
 header h1{
@@ -41,18 +72,48 @@ table{
     border: 1px solid var(--table-border);
     border-radius: 0.5rem;
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    overflow-x: auto;
+    border-collapse: collapse;
     & thead{
         background-color: var(--table-th-bg);
         color: var(--table-th-text);
         & th{
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.25rem;
+            text-overflow: ellipsis;
         }
     }
     & tbody{
         & td{
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.25rem;
+            text-overflow: ellipsis;
             border: 1px solid var(--table-bg);
             border-bottom: 2px solid var(--table-border);
+        }
+    }
+    &.tabla-listado-elements{
+        & a{
+            padding: 0.2rem;
+            transition-property: background-color, color;
+            transition-duration: .5s;
+            transition-timing-function: ease;
+            border: 1px solid #000;
+            border-radius: 0.5rem;
+            &.btn-editar{
+                background-color: var(--btn-bg-upd);
+                color: #000;
+                &:hover{
+                    background-color: #fff;
+                    color: var(--btn-bg-upd);
+                }
+            }
+            &.btn-eliminar{
+                background-color: var(--btn-bg-del);
+                color: #fff;
+                &:hover{
+                    background-color: #fff;
+                    color: var(--btn-bg-del);
+                }
+            }
         }
     }
 }
@@ -78,6 +139,7 @@ fieldset{
     background-color: var(--bento-card-bg);
     border: 1px solid var(--bg-body);
     border-radius: 10px;
+    overflow-x: auto;
 }
 
 aside.panel{
