@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Clientes</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <!-- Menu de navegacion -->
+            <nav class="container mx-auto flex justify-between items-center p-4">
+                <a class="text-white font-bold" href="/">Mi Aplicación</a>
+                <aside class="popper">
+                    <button type="button" class="btn-toggle"> Opciones </button>
+                    <menu type="toolbar" class="popper-content">
+                        <li class=""><a class="text-white hover:text-gray-300" href="/cliente">Listado de Clientes</a></li>
+                        <li class=""><a class="text-white hover:text-gray-300" href="/cliente">Listado de Clientes</a></li>
+                        <hr>
+                        <li class=""><a class="text-white hover:text-gray-300" href="/cliente">Listado de Clientes</a></li>
+                    </menu>
+                </aside>
+            </nav>
+            
+            <section class="min-h-screen " >
+                
+                <header class="bento-box py-4 " >
+                    <h1>Listado de Clientes</h1>
+                </header>
+        
+                <article class="bento-box px-4">
+                    <table class=" tabla-listado-elements my-6" id="tableCliente">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo ID</th>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>dirección</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cliente : ${clientes}">
+                                <td th:text="${cliente.id}"></td>
+                                <td th:text="${cliente.tipoId}"></td>
+                                <td th:text="${cliente.nombre}"></td>
+                                <td th:text="${cliente.telefono}"></td>
+                                <td th:text="${cliente.email}"></td>
+                                <td th:text="${cliente.direccion}"></td>
+                                <td><a class="btn-editar" th:href="@{/cliente/upd/{id}(id=${cliente.id})}">Editar</a></td>
+                                <td><a class="btn-eliminar" th:href="@{/cliente/eliminar/{id}(id=${cliente.id})}">Eliminar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <aside class="panel">
+                    <a type="button" class="btn-adicionar" th:href="@{/cliente/add/{id}(id='0')}" > Añadir </a>
+                </aside>
+
+            </section>
+        </main>
+    <script>
+        ini();
+
+        function ini() {
+            const celdasDocumento = document.querySelectorAll("#tableCliente tbody tr td:nth-child(2)");
+
+            // Iterar sobre cada celda y reemplazar el carácter "C" por "Cedula de Ciudadania"
+            celdasDocumento.forEach(function(celda) {
+                switch (celda.textContent) {
+                    case "C":
+                        celda.textContent = "Cedula de Ciudadania";
+                        break;
+                    case "N":
+                        celda.textContent = "NIT";
+                        break;
+                    default:
+                    celda.textContent = "Documento no identificado";
+                        break;
+                }
+            });
+        }
+    </script>
+    </body>
+</html>
