@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import com.ingeneotest.empresa_gestion_logistica.models.Cliente;
 import com.ingeneotest.empresa_gestion_logistica.services.ClienteServiceInterface;
 
 
 @Controller
-//@RequestMapping("/cliente")
 public class ClienteController implements ClienteControllerInterface {
     private final ClienteServiceInterface clienteService;
 
@@ -26,7 +26,6 @@ public class ClienteController implements ClienteControllerInterface {
 
     @Override
     @GetMapping("/cliente")
-    //ResponseEntity<List<Cliente>>
     public String obtenerTodosClientes(Model model) {
         String path = "cliente/clienteLst";
 
@@ -37,6 +36,7 @@ public class ClienteController implements ClienteControllerInterface {
             model.addAttribute("clienteNuevo", vo);
         } catch (Exception e) {
             path = "error";
+            System.out.println(e);
         }
 
         return path;
@@ -47,7 +47,7 @@ public class ClienteController implements ClienteControllerInterface {
     public String obtenerClientePorId(@PathVariable String action, @PathVariable("id") String id, Model model) {
         Optional<Cliente> cliente = null;
         String path = "cliente/clienteAdm";
-        System.out.println("get - guardarCliente - id; " + id);
+        System.out.println("get - guardarCliente - id: " + id);
         try {
             if (!"0".equalsIgnoreCase(id)) {
                 cliente = clienteService.obtenerClientePorId(id);
@@ -58,6 +58,7 @@ public class ClienteController implements ClienteControllerInterface {
             model.addAttribute("accion", action);
         } catch (Exception e) {
             path = "error";
+            System.out.println(e);
         }
         
         return path;
@@ -65,7 +66,6 @@ public class ClienteController implements ClienteControllerInterface {
     
     @Override
     @PostMapping("/cliente/{action}/{id}")
-    // ResponseEntity<Cliente>
     public String guardarCliente(@PathVariable String action, @PathVariable String id, @ModelAttribute Cliente cliente, Model model) {
         String path = "cliente/clienteAdm";
         System.out.println("post - guardarCliente - id; " + id);
@@ -76,6 +76,7 @@ public class ClienteController implements ClienteControllerInterface {
             model.addAttribute("accion", "upd");
         } catch (Exception e) {
             path = "error";
+            System.out.println(e);
         }
         return path;
     }
@@ -90,6 +91,7 @@ public class ClienteController implements ClienteControllerInterface {
             path = "redirect:/cliente";
         } catch (Exception e) {
             path = "error";
+            System.out.println(e);
         }
         return path;
     }
