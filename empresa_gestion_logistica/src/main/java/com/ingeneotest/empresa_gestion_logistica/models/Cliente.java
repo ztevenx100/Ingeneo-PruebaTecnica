@@ -11,19 +11,19 @@ public class Cliente {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "cli_id")
+    @Column(name = "cli_id", nullable = false)
     private String id;
-    @Column(name = "cli_tipo_id")
+    @Column(name = "cli_tipo_id", nullable = false)
     private String tipoId;
-    @Column(name = "cli_nombre")
+    @Column(name = "cli_nombre", nullable = false)
     private String nombre;
     @Column(name = "cli_telefono")
     private String telefono;
-    @Column(name = "cli_email")
+    @Column(name = "cli_email", nullable = false)
     private String email;
     @Column(name = "cli_direccion")
     private String direccion;
-    @Column(name = "cli_estado")
+    @Column(name = "cli_estado", nullable = false, columnDefinition = "text default 'A'")
     private String estado;
     
     public Cliente() {
