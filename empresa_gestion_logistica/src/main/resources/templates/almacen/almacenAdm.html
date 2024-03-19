@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cliente</title>
+        <title>Almacen</title>
         <link rel="stylesheet" href="/css/styles.css">
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="/js/validaciones.js"></script>
@@ -15,55 +15,49 @@
             <section class="min-h-screen " >
                 
                 <header class="bento-box py-4 " >
-                    <h1>Formulario Cliente</h1>
+                    <h1>Formulario Almacen</h1>
                 </header>
         
                 <article class="bento-box p-4">
-                    <form th:object="${cliente}" th:action="@{'/cliente/' + ${action} + '/' + ${cliente.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
+                    <form th:object="${almacen}" th:action="@{'/almacen/' + ${action} + '/' + ${almacen.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
                         <fieldset class="general-form">
                             <legend>Formulario</legend>
                             <input  type="hidden" name="action" th:value="${action}">
                             <label for="id">
-                                <span>Documento:</span>
-                                <input th:if="${action == 'add' }" type="text" th:field="*{id}" maxlength="50" required>
-                                <input th:unless="${action == 'add' }" type="text" th:field="*{id}" readonly>
+                                <span>Codigo:</span>
+                                <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
+                                <input th:unless="${id == null }" type="text" th:field="*{id}" readonly>
                             </label>
-                            <label for="tipoId">
-                                <span>Tipo de Cliente:</span>
-                                <select id="tipoId" name="tipoId" th:field="*{tipoId}" required>
+                            <label for="tipo">
+                                <span>Tipo de Almacen:</span>
+                                <select id="tipo" name="tipo" th:field="*{tipo}" required>
                                     <option value="" />
-                                    <option value="C">Cedula de ciudadania</option>
-                                    <option value="N">NIT</option>
-                                    <option value="E">Cedula de extranjeria</option>
+                                    <option value="B">Bodega</option>
+                                    <option value="P">Puerto</option>
                                 </select>
                             </label>
                             <label for="nombre">
                                 <span class="text-span">Nombre:</span>
                                 <input type="text" th:field="*{nombre}" maxlength="50" required>
                             </label>
-                            <label for="telefono">
-                                <span>Telefono:</span>
-                                <input type="text" th:field="*{telefono}" oninput="validarCampoNumerico(this)" maxlength="20" required>
+                            <label for="descripcion">
+                                <span>Descripcion:</span>
+                                <input type="text" th:field="*{descripcion}" maxlength="50" >
                             </label>
-                            <label for="email">
-                                <span>Correo Electrónico:</span>
-                                <input type="email" th:field="*{email}" maxlength="50" required>
-                            </label>
-                            <label for="direccion">
-                                <span>Direccion:</span>
+                            <label for="dirrecion">
+                                <span>Dirección:</span>
                                 <input type="text" th:field="*{direccion}" maxlength="50" required>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
-                                <select id="estado" name="estado" th:field="*{estado}" required>
+                                <select id="estado" name="estado" th:field="*{estado}" maxlength="50" required>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
-                                    <option value="R">Retirado</option>
                                 </select>
                             </label>
                             <button type="submit" class="btn-submit">
-                                <p th:if="${action == 'add' }" >Añadir Cliente</p>
-                                <p th:unless="${action == 'add' }" >Actualizar Cliente</p>
+                                <p th:if="${action == 'add' }" >Añadir almacen</p>
+                                <p th:unless="${action == 'add' }" >Actualizar almacen</p>
                             </button>
                         </fieldset>
                     </form>

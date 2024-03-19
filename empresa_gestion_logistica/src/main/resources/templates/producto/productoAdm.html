@@ -25,7 +25,7 @@
                             <input  type="hidden" name="action" th:value="${action}">
                             <label for="id">
                                 <span>Codigo:</span>
-                                <input th:if="${id == null }" type="text" th:field="*{id}" required>
+                                <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
                                 <input th:unless="${id == null }" type="text" th:field="*{id}" readonly>
                             </label>
                             <label for="tipo">
@@ -38,19 +38,19 @@
                             </label>
                             <label for="nombre">
                                 <span class="text-span">Nombre:</span>
-                                <input type="text" th:field="*{nombre}" required>
+                                <input type="text" th:field="*{nombre}" maxlength="50" required>
                             </label>
                             <label for="cantidad">
                                 <span>Cantidad:</span>
-                                <input type="text" th:field="*{cantidad}" oninput="validarCampoNumerico(this)" required>
+                                <input type="text" th:field="*{cantidad}" oninput="validarCampoNumerico(this)" maxlength="20" required>
                             </label>
                             <label for="valorUnitario">
                                 <span>Valor unitario:</span>
-                                <input type="text" th:field="*{valorUnitario}" oninput="validarCampoNumerico(this)" required>
+                                <input type="text" th:field="*{valorUnitario}" oninput="validarCampoNumerico(this)" maxlength="20" required>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
-                                <select id="estado" name="estado" th:field="*{estado}" required>
+                                <select id="estado" name="estado" th:field="*{estado}" maxlength="50" required>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
