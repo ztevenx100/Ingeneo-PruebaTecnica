@@ -17,25 +17,21 @@ public class ProductoService implements ProductoServiceInterface {
         this.productoRepository = ProductoRepository;
     }
 
-    
     @Override
     public List<Producto> obtenerTodosProductos() {
         return productoRepository.findAll();
     }
 
-    
     @Override
     public Optional<Producto> obtenerProductoPorId(String id) {
         return productoRepository.findById(id);
     }
 
-    
     @Override
     public Producto guardarProducto(Producto producto) {
         return productoRepository.save(producto);
     }
 
-    
     @Override
     public void eliminarProducto(String id) {
         productoRepository.deleteById(id);

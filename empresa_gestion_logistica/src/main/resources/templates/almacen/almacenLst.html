@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Almacenes</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <div th:insert="~{/navbar :: navbar}"></div>
+            
+            <section class="min-h-screen " >
+                
+                <header class="bento-box py-4 " >
+                    <h1>Listado de Almacenes</h1>
+                </header>
+        
+                <article class="bento-box px-4">
+                    <table class=" tabla-listado-elements my-6" id="tableAlmacen">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Nombre</th>
+                                <th>Dirrecion</th>
+                                <th>Estado</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="almacen : ${almacenes}">
+                                <td th:text="${almacen.id}"></td>
+                                <td th:text="${almacen.tipo}"></td>
+                                <td th:text="${almacen.nombre}"></td>
+                                <td th:text="${almacen.direccion}"></td>
+                                <td th:text="${almacen.estado}"></td>
+                                <td><a class="btn-editar" th:href="@{/almacen/upd/{id}(id=${almacen.id})}">Editar</a></td>
+                                <td><a class="btn-eliminar" th:href="@{/almacen/eliminar/{id}(id=${almacen.id})}">Eliminar</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <aside class="panel">
+                    <a type="button" class="btn-adicionar" th:href="@{/almacen/add/{id}(id='0')}" > Añadir </a>
+                </aside>
+
+            </section>
+        </main>
+    <script>
+        ini();
+
+        function ini() {
+            const celdasDocumento = document.querySelectorAll("#tableAlmacen tbody tr td:nth-child(2)");
+            const celdasEstado = document.querySelectorAll("#tableAlmacen tbody tr td:nth-child(5)");
+            
+            celdasDocumento.forEach(function(celda) {
+                switch (celda.textContent) {
+                    case "B":
+                        celda.textContent = "Bodega";
+                        break;
+                    case "P":
+                        celda.textContent = "Puerto";
+                        break;
+                    default:
+                    celda.textContent = "Tipo no identificado";
+                        break;
+                }
+            });
+            celdasEstado.forEach(function(celda) {
+                switch (celda.textContent) {
+                    case "A":
+                        celda.textContent = "Activo";
+                        break;
+                    case "I":
+                        celda.textContent = "Inactivo";
+                        break;
+                    default:
+                    celda.textContent = "Estado no identificado";
+                        break;
+                }
+            });
+        }
+    </script>
+    </body>
+</html>
