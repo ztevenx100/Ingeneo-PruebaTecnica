@@ -19,3 +19,6 @@ Pagina web de la prueba tecnica para Ingeneo
     - Artefactos de despliegue de la solución.
     - Definición de buenas prácticas. 
     - Justificación de las tecnologías empleadas y patrones de diseño empleados.
+
+### Diagrama entidad relacion
+![Diagrama E - R - prueba tecnica drawio](https://github.com/ztevenx100/Ingeneo-PruebaTecnica/assets/50757337/034ed181-0a9a-4641-8e28-fd43c2aaece0)
