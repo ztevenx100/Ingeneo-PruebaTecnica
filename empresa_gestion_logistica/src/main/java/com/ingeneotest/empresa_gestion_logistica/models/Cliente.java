@@ -84,16 +84,13 @@ public class Cliente {
     public String getEstado() {
         return estado;
     }
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
     
     @Override
     public String toString() {
-        return "Cliente [id=" + id + ", tipoId=" + tipoId + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + "]";
+        return "Cliente [id=" + id + ", tipoId=" + tipoId + ", nombre=" + nombre + ", telefono=" + telefono + ", email=" + email + ", estado=" + estado + "]";
     }
-    
-    
 
 }

@@ -8,6 +8,4 @@ import com.ingeneotest.empresa_gestion_logistica.models.Producto;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, String> {
 
-    
-
 }

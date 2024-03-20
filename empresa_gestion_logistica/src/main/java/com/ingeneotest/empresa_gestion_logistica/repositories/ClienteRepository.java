@@ -8,5 +8,4 @@ import com.ingeneotest.empresa_gestion_logistica.models.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, String> {
 
-
 }

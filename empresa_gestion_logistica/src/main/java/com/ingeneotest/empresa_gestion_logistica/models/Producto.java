@@ -75,16 +75,13 @@ public class Producto {
     public String getEstado() {
         return estado;
     }
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
     
     @Override
     public String toString() {
-        return "Cliente [id=" + id + ", tipo=" + tipo + ", nombre=" + nombre + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + "]";
+        return "Cliente [id=" + id + ", tipo=" + tipo + ", nombre=" + nombre + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + ", estado=" + estado + "]";
     }
-    
-    
 
 }
