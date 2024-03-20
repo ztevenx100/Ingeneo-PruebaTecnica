@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Transporte</title>
+        <link rel="stylesheet" href="/css/styles.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/js/validaciones.js"></script>
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <div th:insert="~{/navbar :: navbar}"></div>
+            
+            <section class="min-h-screen " >
+                
+                <header class="bento-box py-4 " >
+                    <h1>Formulario Transporte</h1>
+                </header>
+        
+                <article class="bento-box p-4">
+                    <form th:object="${transporte}" th:action="@{'/transporte/' + ${action} + '/' + ${transporte.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
+                        <fieldset class="general-form">
+                            <legend>Formulario</legend>
+                            <input  type="hidden" name="action" th:value="${action}">
+                            <label for="id">
+                                <span>Codigo:</span>
+                                <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
+                                <input th:unless="${id == null }" type="text" th:field="*{id}" readonly>
+                            </label>
+                            <label for="tipo">
+                                <span>Tipo de Transporte:</span>
+                                <select id="tipo" name="tipo" th:field="*{tipo}" required>
+                                    <option value="" />
+                                    <option value="M">Maritimo</option>
+                                    <option value="T">Terrestre</option>
+                                </select>
+                            </label>
+                            <label for="matricula">
+                                <span class="text-span">Matricula:</span>
+                                <input type="text" th:field="*{matricula}" maxlength="50" required>
+                            </label>
+                            <label for="marca">
+                                <span class="text-span">Marca:</span>
+                                <input type="text" th:field="*{marca}" maxlength="50" required>
+                            </label>
+                            <label for="modelo">
+                                <span class="text-span">Modelo:</span>
+                                <input type="text" th:field="*{modelo}" maxlength="50" required>
+                            </label>
+                            <label for="idResponsable">
+                                <span>Id Responsable:</span>
+                                <input type="text" th:field="*{idResponsable}" oninput="validarCampoNumerico(this)" maxlength="20" required>
+                            </label>
+                            <label for="nomResponsable">
+                                <span class="text-span">Nombre responsable:</span>
+                                <input type="text" th:field="*{nomResponsable}" maxlength="50" required>
+                            </label>
+                            <label for="estado">
+                                <span>Estado:</span>
+                                <select id="estado" name="estado" th:field="*{estado}" maxlength="50" required>
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>
+                            </label>
+                            <button type="submit" class="btn-submit">
+                                <p th:if="${action == 'add' }" >Añadir Transporte</p>
+                                <p th:unless="${action == 'add' }" >Actualizar Transporte</p>
+                            </button>
+                        </fieldset>
+                    </form>
+                </article>
+
+            </section>
+        </main>
+
+        <script>
+            ini();
+
+            function ini() {
+                
+            }
+
+            function enviarFormulario(event) {
+                event.preventDefault();
+                const form = document.forms[0];
+
+                if (validarFormulario(form)) {
+                    form.submit();
+                } else {
+                    alert("Por favor, complete todos los campos correctamente.");
+                }
+            }
+
+            function validarFormulario(form) {
+                let validar = true;
+
+                validar &= validarCamposRequeridos();
+
+                return validar;
+            }
+        </script>
+
+    </body>
+</html>
