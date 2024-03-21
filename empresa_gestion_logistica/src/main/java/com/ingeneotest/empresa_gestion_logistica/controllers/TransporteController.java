@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ingeneotest.empresa_gestion_logistica.factory.TransporteFactory;
+import com.ingeneotest.empresa_gestion_logistica.factory.TransporteMaritimoFactory;
 import com.ingeneotest.empresa_gestion_logistica.models.Transporte;
+import com.ingeneotest.empresa_gestion_logistica.models.TransporteInterface;
+import com.ingeneotest.empresa_gestion_logistica.models.TransporteMaritimo;
+import com.ingeneotest.empresa_gestion_logistica.models.TransporteTerrestre;
 import com.ingeneotest.empresa_gestion_logistica.services.TransporteServiceInterface;
 
 
@@ -33,7 +38,7 @@ public class TransporteController implements TransporteControllerInterface{
         try {
             List<Transporte> l = transporteService.obtenerTodosTransportes();
             model.addAttribute("transportes", l);
-            Transporte vo = new Transporte();
+            TransporteInterface vo = new Transporte();
             model.addAttribute("transporteNuevo", vo);
         } catch (Exception e) {
             path = "error";
@@ -70,13 +75,33 @@ public class TransporteController implements TransporteControllerInterface{
     
     @Override
     @PostMapping("/transporte/{action}/{id}")
-    public String guardarTransporte(@PathVariable String action, @PathVariable String id, @ModelAttribute Transporte transporte, Model model) {
+    public String guardarTransporte(@PathVariable String action, @PathVariable("id") String id, @ModelAttribute Transporte transporte, Model model) {
         String path = "transporte/transporteAdm";
+        TransporteFactory factory = null;
         System.out.println("post - guardarTransporte - id; " + id);
         try {
+            path = "redirect:/transporte/upd/" + transporte.getId();
+
+            if(TransporteServiceInterface.TIPO_MARITIMO.equalsIgnoreCase(transporte.getTipo()) ) {
+                factory = new TransporteMaritimoFactory();
+                TransporteMaritimo transporteMaritimo = (TransporteMaritimo) factory.crearTransporte(transporte);
+                if (!transporteMaritimo.validarFormatoMatricula()){
+                    System.err.println("El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra");
+
+                    return path;
+                }
+            } else if (TransporteServiceInterface.TIPO_TERRESTRE.equalsIgnoreCase(transporte.getTipo()) ){
+                factory = new TransporteMaritimoFactory();
+                TransporteTerrestre transporteTerrestre = (TransporteTerrestre) factory.crearTransporte(transporte);
+                if (!transporteTerrestre.validarFormatoMatricula()){
+                    System.err.println("El formato debe corresponder a 3 letras iniciales y 3 números finales");
+
+                    return path;
+                }
+            }
+
             transporteService.guardarTransporte(transporte);
             //new ResponseEntity<>(nuevoTransporte, HttpStatus.CREATED)
-            path = "redirect:/transporte/upd/" + transporte.getId();
             model.addAttribute("accion", "upd");
         } catch (Exception e) {
             path = "error";

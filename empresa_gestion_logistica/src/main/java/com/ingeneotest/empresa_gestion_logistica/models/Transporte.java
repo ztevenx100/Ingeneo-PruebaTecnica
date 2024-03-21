@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tra_transporte")
-public class Transporte {
+public class Transporte extends TransporteInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -43,58 +43,74 @@ public class Transporte {
         this.estado = estado;
     }
     
+    @Override
     public String getId() {
         return id;
     }
+    @Override
     public void setId(String id) {
         this.id = id;
     }
     
+    @Override
     public String getTipo() {
         return tipo;
     }
+    @Override
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
     
+    @Override
     public String getMatricula() {
         return matricula;
     }
+    @Override
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
     
+    @Override
     public String getMarca() {
         return marca;
     }
+    @Override
     public void setMarca(String marca) {
         this.marca = marca;
     }
 
+    @Override
     public String getModelo() {
         return modelo;
     }
+    @Override
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
     
+    @Override
     public String getIdResponsable() {
         return idResponsable;
     }
+    @Override
     public void setIdResponsable(String idResponsable) {
         this.idResponsable = idResponsable;
     }
     
+    @Override
     public String getNomResponsable() {
         return nomResponsable;
     }
+    @Override
     public void setNomResponsable(String nomResponsable) {
         this.nomResponsable = nomResponsable;
     }
     
+    @Override
     public String getEstado() {
         return estado;
     }
+    @Override
     public void setEstado(String estado) {
         this.estado = estado;
     }
@@ -104,6 +120,7 @@ public class Transporte {
         return "Cliente [id=" + id + ", tipo=" + tipo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", idResponsable=" + idResponsable + ", nomResponsable=" + nomResponsable + ", estado=" + estado + "]";
     }
 
+    @Override
     public boolean validarFormatoMatricula(){
         return true;
     }
