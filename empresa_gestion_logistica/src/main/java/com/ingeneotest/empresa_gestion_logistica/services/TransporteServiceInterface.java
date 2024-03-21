@@ -6,6 +6,8 @@ import java.util.Optional;
 import com.ingeneotest.empresa_gestion_logistica.models.Transporte;
 
 public interface TransporteServiceInterface {
+    public static final String TIPO_TERRESTRE = "T";
+    public static final String TIPO_MARITIMO = "M";
 
     List<Transporte> obtenerTodosTransportes();
 

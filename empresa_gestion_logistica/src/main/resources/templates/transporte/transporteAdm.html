@@ -38,7 +38,7 @@
                             </label>
                             <label for="matricula">
                                 <span class="text-span">Matricula:</span>
-                                <input type="text" th:field="*{matricula}" maxlength="50" required>
+                                <input type="text" th:field="*{matricula}" onchange="validarFormato(this)" maxlength="50" required>
                             </label>
                             <label for="marca">
                                 <span class="text-span">Marca:</span>
@@ -98,6 +98,29 @@
                 validar &= validarCamposRequeridos();
 
                 return validar;
+            }
+
+            function validarFormato(input) {
+                let form = document.forms[0];
+                let valor = input.value.trim();
+
+                if (form.tipo.value === '' || form.tipo.value == undefined) {
+                    alert("El campo tipo esta vacio.");
+                    input.value = '';
+                    form.tipo.focus();
+                    return;
+                }
+
+                if (form.tipo.value === 'T' && (!/^[A-Za-z]{3}\d{3}$/.test(valor))) {
+                    alert("El formato debe corresponder a 3 letras iniciales y 3 números finales.");
+                    input.setCustomValidity("El formato debe corresponder a 3 letras iniciales y 3 números finales");
+                } else if (form.tipo.value === 'M' && (!/^[A-Za-z]{3}\d{4}[A-Za-z]$/.test(valor))) {
+                    alert("El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra.");
+                    input.setCustomValidity("El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra");
+                } else {
+                    input.setCustomValidity("");
+                }
+                event.preventDefault();
             }
         </script>
 
