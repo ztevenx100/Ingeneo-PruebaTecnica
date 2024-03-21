@@ -104,4 +104,8 @@ public class Transporte {
         return "Cliente [id=" + id + ", tipo=" + tipo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", idResponsable=" + idResponsable + ", nomResponsable=" + nomResponsable + ", estado=" + estado + "]";
     }
 
+    public boolean validarFormatoMatricula(){
+        return true;
+    }
+
 }
