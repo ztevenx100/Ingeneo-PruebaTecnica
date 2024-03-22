@@ -50,7 +50,7 @@ public class ClienteController implements ClienteControllerInterface {
     public String obtenerClientePorId(@PathVariable("action") String action, @PathVariable("id") String id, Model model) {
         Optional<Cliente> cliente = null;
         String path = "cliente/clienteAdm";
-        System.out.println("get - guardarCliente - id: " + id);
+        System.out.println("get - obtenerClientePorId - id: " + id);
         try {
             if (!"0".equalsIgnoreCase(id)) {
                 cliente = clienteService.obtenerClientePorId(id);

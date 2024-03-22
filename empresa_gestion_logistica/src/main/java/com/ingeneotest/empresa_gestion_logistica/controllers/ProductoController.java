@@ -51,7 +51,7 @@ public class ProductoController implements ProductoControllerInterface{
     public String obtenerProductoPorId(@PathVariable("action") String action, @PathVariable("id") String id, Model model) {
         Optional<Producto> producto = null;
         String path = "producto/productoAdm";
-        System.out.println("get - guardarProducto - id: " + id);
+        System.out.println("get - obtenerProductoPorId - id: " + id);
         try {
             if (!"0".equalsIgnoreCase(id)) {
                 producto = productoService.obtenerProductoPorId(id);
