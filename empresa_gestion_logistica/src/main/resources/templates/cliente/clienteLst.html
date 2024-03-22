@@ -6,6 +6,7 @@
         <title>Lista de Clientes</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="/css/styles.css">
+        <script src="/js/validaciones.js"></script>
     </head>
     <body>
         <main class="container mx-auto" >
@@ -53,6 +54,21 @@
                 </aside>
 
             </section>
+
+            <!-- Toast de notificacion -->
+            <aside th:if="${notificacion != null }" id="toast" class="toast toast-notificacion">
+                <header>Notificación</header>
+                <section class="toast-body">
+                    <span th:text="${notificacion}" ></span>
+                </section>
+            </aside>
+            <aside th:if="${error != null }" id="toast" class="toast toast-error">
+                <header>Error</header>
+                <section class="toast-body">
+                    <span th:text="${error}" ></span>
+                </section>
+            </aside>
+
         </main>
     <script>
         ini();

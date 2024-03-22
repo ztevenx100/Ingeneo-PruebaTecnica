@@ -22,7 +22,9 @@
                     <form th:object="${transporte}" th:action="@{'/transporte/' + ${action} + '/' + ${transporte.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
                         <fieldset class="general-form">
                             <legend>Formulario</legend>
-                            <input  type="hidden" name="action" th:value="${action}">
+                            
+                            <input type="hidden" name="action" th:value="${action}">
+                            
                             <label for="id">
                                 <span>Codigo:</span>
                                 <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
@@ -72,6 +74,21 @@
                 </article>
 
             </section>
+            
+            <!-- Toast de notificacion -->
+            <aside th:if="${notificacion != null }" id="toast" class="toast toast-notificacion">
+                <header>Notificación</header>
+                <section class="toast-body">
+                    <span th:text="${notificacion}" ></span>
+                </section>
+            </aside>
+            <aside th:if="${error != null }" id="toast" class="toast toast-error">
+                <header>Error</header>
+                <section class="toast-body">
+                    <span th:text="${error}" ></span>
+                </section>
+            </aside>
+            
         </main>
 
         <script>

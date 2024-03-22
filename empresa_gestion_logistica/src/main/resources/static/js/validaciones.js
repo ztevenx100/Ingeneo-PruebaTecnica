@@ -1,3 +1,24 @@
+// aniaciones para los elementos toast
+window.onload = async function() {
+    let toast = document.getElementById('toast');
+    if (toast) {
+        await new Promise(resolve => {
+            setTimeout(() => {
+                toast.classList.add('fade-in');
+                resolve();
+            }, 2000)
+        });
+
+        await new Promise(resolve => {
+            setTimeout(() => {
+                toast.classList.remove('fade-in');
+                toast.classList.add('fade-out');
+                resolve();
+            }, 5000)
+        });
+    }
+}
+
 // Función para validar si un campo es numérico
 function validarCampoNumerico(input) {
     const valor = input.value;
