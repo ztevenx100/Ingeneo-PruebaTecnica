@@ -57,6 +57,7 @@
 
             </section>
 
+            <!-- Toast de notificacion -->
             <aside th:if="${notificacion != null }" id="toast" class="toast toast-notificacion">
                 <header>Notificación</header>
                 <section class="toast-body">
@@ -69,6 +70,7 @@
                     <span th:text="${error}" ></span>
                 </section>
             </aside>
+            
         </main>
     <script>
         ini();
