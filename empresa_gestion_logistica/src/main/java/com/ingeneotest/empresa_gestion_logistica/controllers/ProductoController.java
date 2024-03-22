@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ingeneotest.empresa_gestion_logistica.models.Producto;
 import com.ingeneotest.empresa_gestion_logistica.services.ProductoServiceInterface;
@@ -35,6 +36,8 @@ public class ProductoController implements ProductoControllerInterface{
             model.addAttribute("productos", l);
             Producto vo = new Producto();
             model.addAttribute("productoNuevo", vo);
+            model.addAttribute("notificacion", model.getAttribute("notificacion"));
+            model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {
             path = "error";
             System.out.println(e);
@@ -45,7 +48,7 @@ public class ProductoController implements ProductoControllerInterface{
 
     @Override
     @GetMapping("/producto/{action}/{id}")
-    public String obtenerProductoPorId(@PathVariable String action, @PathVariable("id") String id, Model model) {
+    public String obtenerProductoPorId(@PathVariable("action") String action, @PathVariable("id") String id, Model model) {
         Optional<Producto> producto = null;
         String path = "producto/productoAdm";
         System.out.println("get - guardarProducto - id: " + id);
@@ -60,6 +63,8 @@ public class ProductoController implements ProductoControllerInterface{
             }
             model.addAttribute("producto", producto.get());
             model.addAttribute("accion", action);
+            model.addAttribute("notificacion", model.getAttribute("notificacion"));
+            model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {
             path = "error";
             System.out.println(e);
@@ -70,32 +75,36 @@ public class ProductoController implements ProductoControllerInterface{
     
     @Override
     @PostMapping("/producto/{action}/{id}")
-    public String guardarProducto(@PathVariable String action, @PathVariable String id, @ModelAttribute Producto producto, Model model) {
+    public String guardarProducto(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Producto producto, Model model, RedirectAttributes redirectAttributes) {
         String path = "producto/productoAdm";
         System.out.println("post - guardarProducto - id; " + id);
         try {
+            path = "redirect:/producto/upd/" + producto.getId();
             productoService.guardarProducto(producto);
             //new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED)
-            path = "redirect:/producto/upd/" + producto.getId();
             model.addAttribute("accion", "upd");
+            redirectAttributes.addFlashAttribute("notificacion", "Producto " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
             path = "error";
             System.out.println(e);
+            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " producto");
         }
         return path;
     }
 
     @Override
     @GetMapping("/producto/eliminar/{id}")
-    public String eliminarProducto(@PathVariable("id") String id, Model model) {
+    public String eliminarProducto(@PathVariable("id") String id, Model model, RedirectAttributes redirectAttributes) {
         System.out.println("delete - eliminarProducto - id; " + id);
         String path = "producto/productoLst";
         try {
-            productoService.eliminarProducto(id);
             path = "redirect:/producto";
+            productoService.eliminarProducto(id);
+            redirectAttributes.addFlashAttribute("notificacion", "Producto eliminado");
         } catch (Exception e) {
             path = "error";
             System.out.println(e);
+            redirectAttributes.addFlashAttribute("error", "Error eliminado producto");
         }
         return path;
     }

@@ -47,7 +47,7 @@ public class ClienteController implements ClienteControllerInterface {
 
     @Override
     @GetMapping("/cliente/{action}/{id}")
-    public String obtenerClientePorId(@PathVariable String action, @PathVariable("id") String id, Model model) {
+    public String obtenerClientePorId(@PathVariable("action") String action, @PathVariable("id") String id, Model model) {
         Optional<Cliente> cliente = null;
         String path = "cliente/clienteAdm";
         System.out.println("get - guardarCliente - id: " + id);
@@ -71,7 +71,7 @@ public class ClienteController implements ClienteControllerInterface {
     
     @Override
     @PostMapping("/cliente/{action}/{id}")
-    public String guardarCliente(@PathVariable String action, @PathVariable String id, @ModelAttribute Cliente cliente, Model model, RedirectAttributes redirectAttributes) {
+    public String guardarCliente(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Cliente cliente, Model model, RedirectAttributes redirectAttributes) {
         String path = "cliente/clienteAdm";
         System.out.println("post - guardarCliente - id; " + id);
         try {
