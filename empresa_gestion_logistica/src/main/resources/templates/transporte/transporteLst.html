@@ -45,7 +45,7 @@
                                 <td th:text="${transporte.nomResponsable}"></td>
                                 <td th:text="${transporte.estado}"></td>
                                 <td><a class="btn-editar" th:href="@{/transporte/upd/{id}(id=${transporte.id})}">Editar</a></td>
-                                <td><a class="btn-eliminar" th:href="@{/transporte/eliminar/{id}(id=${transporte.id})}">Eliminar</a></td>
+                                <td><a class="btn-eliminar" th:onclick="'javascript:confirmarEliminacion(\'' + |@{/transporte/eliminar/{id}(id=${transporte.id})}| + '\')'" >Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>

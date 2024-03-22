@@ -41,7 +41,7 @@
                                 <td th:text="${producto.valorUnitario}"></td>
                                 <td th:text="${producto.estado}"></td>
                                 <td><a class="btn-editar" th:href="@{/producto/upd/{id}(id=${producto.id})}">Editar</a></td>
-                                <td><a class="btn-eliminar" th:href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a></td>
+                                <td><a class="btn-eliminar" th:onclick="'javascript:confirmarEliminacion(\'' + |@{/producto/eliminar/{id}(id=${producto.id})}| + '\')'" >Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>
