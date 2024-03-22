@@ -61,3 +61,11 @@ function validarCamposRequeridos() {
     return true;
 }
 
+// Funcion para confirmacion de eliminacion de registro
+function confirmarEliminacion(url) {
+    if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+        window.location.href = url;
+    } else {
+        return;
+    }
+}

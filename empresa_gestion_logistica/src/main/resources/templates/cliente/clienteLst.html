@@ -43,7 +43,7 @@
                                 <td th:text="${cliente.direccion}"></td>
                                 <td th:text="${cliente.estado}"></td>
                                 <td><a class="btn-editar" th:href="@{/cliente/upd/{id}(id=${cliente.id})}">Editar</a></td>
-                                <td><a class="btn-eliminar" th:href="@{/cliente/eliminar/{id}(id=${cliente.id})}">Eliminar</a></td>
+                                <td><a class="btn-eliminar" th:onclick="'javascript:confirmarEliminacion(\'' + |@{/cliente/eliminar/{id}(id=${cliente.id})}| + '\')'" >Eliminar</a></td>
                             </tr>
                         </tbody>
                     </table>
