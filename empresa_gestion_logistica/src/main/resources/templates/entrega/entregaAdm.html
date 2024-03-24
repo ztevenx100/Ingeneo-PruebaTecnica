@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>entrega</title>
+        <link rel="stylesheet" href="/css/styles.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="/js/validaciones.js"></script>
+    </head>
+    <body>
+        <main class="container mx-auto" >
+            <div th:insert="~{/navbar :: navbar}"></div>
+            
+            <section class="min-h-screen " >
+                
+                <header class="bento-box py-4 " >
+                    <h1>Formulario entrega</h1>
+                </header>
+        
+                <article class="bento-box p-4">
+                    <form th:object="${entrega}" th:action="@{'/entrega/' + ${action} + '/' + ${entrega.id}} " class="" method="post" onsubmit="enviarFormulario(event);">
+                        <fieldset class="general-form">
+                            <legend>Formulario</legend>
+                            
+                            <input type="hidden" name="action" th:value="${action}">
+                            
+                            <label for="id">
+                                <span>Codigo:</span>
+                                <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
+                                <input th:unless="${id == null }" type="text" th:field="*{id}" readonly>
+                            </label>
+                            <label for="cliente">
+                                <span>Cliente:</span>
+                                <select id="cliente" name="cliente" th:field="*{cliente}" required>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+                                </select>
+                            </label>
+                            <label for="producto">
+                                <span class="text-span">Producto:</span>
+                                <input type="text" th:field="*{producto}" maxlength="50" required>
+                            </label>
+                            <label for="almacen">
+                                <span class="text-span">Almacen:</span>
+                                <input type="text" th:field="*{almacen}" maxlength="50" required>
+                            </label>
+                            <label for="transporte">
+                                <span class="text-span">Transporte:</span>
+                                <input type="text" th:field="*{transporte}" maxlength="50" required>
+                            </label>
+                            <label for="numeroGuia">
+                                <span>Id Responsable:</span>
+                                <input type="text" th:field="*{numeroGuia}" maxlength="20" required>
+                            </label>
+                            <label for="fecRegistro">
+                                <span class="text-span">Fecha registro:</span>
+                                <input type="datetime-local" th:field="*{fecRegistro}" required>
+                            </label>
+                            <label for="fecEntrega">
+                                <span class="text-span">Fecha entrega:</span>
+                                <input type="datetime-local" th:field="*{fecEntrega}" required>
+                            </label>
+                            <label for="estado">
+                                <span>Estado:</span>
+                                <select id="estado" name="estado" th:field="*{estado}" maxlength="50" required>
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>
+                            </label>
+                            <button type="submit" class="btn-submit">
+                                <p th:if="${action == 'add' }" >Añadir entrega</p>
+                                <p th:unless="${action == 'add' }" >Actualizar entrega</p>
+                            </button>
+                        </fieldset>
+                    </form>
+                </article>
+
+            </section>
+            
+            <!-- Toast de notificacion -->
+            <aside th:if="${notificacion != null }" id="toast" class="toast toast-notificacion">
+                <header>Notificación</header>
+                <section class="toast-body">
+                    <span th:text="${notificacion}" ></span>
+                </section>
+            </aside>
+            <aside th:if="${error != null }" id="toast" class="toast toast-error">
+                <header>Error</header>
+                <section class="toast-body">
+                    <span th:text="${error}" ></span>
+                </section>
+            </aside>
+            
+        </main>
+
+        <script>
+            ini();
+
+            function ini() {
+                
+            }
+
+            function enviarFormulario(event) {
+                event.preventDefault();
+                const form = document.forms[0];
+
+                if (validarFormulario(form)) {
+                    form.submit();
+                } else {
+                    alert("Por favor, complete todos los campos correctamente.");
+                }
+            }
+
+            function validarFormulario(form) {
+                let validar = true;
+
+                validar &= validarCamposRequeridos();
+
+                return validar;
+            }
+
+            function validarFormato(input) {
+                let form = document.forms[0];
+                let valor = input.value.trim();
+
+                if (form.tipo.value === '' || form.tipo.value == undefined) {
+                    alert("El campo tipo esta vacio.");
+                    input.value = '';
+                    form.tipo.focus();
+                    return;
+                }
+
+                if (form.tipo.value === 'T' && (!/^[A-Za-z]{3}\d{3}$/.test(valor))) {
+                    alert("El formato debe corresponder a 3 letras iniciales y 3 números finales.");
+                    input.setCustomValidity("El formato debe corresponder a 3 letras iniciales y 3 números finales");
+                } else if (form.tipo.value === 'M' && (!/^[A-Za-z]{3}\d{4}[A-Za-z]$/.test(valor))) {
+                    alert("El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra.");
+                    input.setCustomValidity("El formato debe corresponder a 3 letras iniciales, seguidas de 4 números y finalizando con una letra");
+                } else {
+                    input.setCustomValidity("");
+                }
+                event.preventDefault();
+            }
+        </script>
+
+    </body>
+</html>

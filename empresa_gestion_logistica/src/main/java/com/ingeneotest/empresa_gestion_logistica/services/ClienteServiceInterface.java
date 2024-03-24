@@ -9,6 +9,10 @@ public interface ClienteServiceInterface {
 
     List<Cliente> obtenerTodosClientes();
 
+    List<Cliente> obtenerClientesPorEstados();
+    
+    List<Cliente> obtenerClientesPorEstados(List<String> estados);
+
     Optional<Cliente> obtenerClientePorId(String id);
 
     Cliente guardarCliente(Cliente cliente);
