@@ -1,5 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,17 @@ public class TransporteService implements TransporteServiceInterface {
     @Override
     public List<Transporte> obtenerTodosTransportes() {
         return transporteRepository.findAll();
+    }
+
+    @Override
+    public List<Transporte> obtenerTransportesPorEstados() {
+        List<String> l = Arrays.asList("A".split(","));
+        return obtenerTransportesPorEstados(l);
+    }
+
+    @Override
+    public List<Transporte> obtenerTransportesPorEstados(List<String> estados) {
+        return transporteRepository.findByEstadoIn(estados);
     }
 
     @Override

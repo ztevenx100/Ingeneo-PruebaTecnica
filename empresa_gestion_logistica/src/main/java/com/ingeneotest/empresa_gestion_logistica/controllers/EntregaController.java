@@ -13,16 +13,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ingeneotest.empresa_gestion_logistica.models.Almacen;
 import com.ingeneotest.empresa_gestion_logistica.models.Cliente;
 import com.ingeneotest.empresa_gestion_logistica.models.Entrega;
+import com.ingeneotest.empresa_gestion_logistica.models.Producto;
+import com.ingeneotest.empresa_gestion_logistica.models.Transporte;
+import com.ingeneotest.empresa_gestion_logistica.services.AlmacenService;
 import com.ingeneotest.empresa_gestion_logistica.services.ClienteService;
 import com.ingeneotest.empresa_gestion_logistica.services.EntregaServiceInterface;
+import com.ingeneotest.empresa_gestion_logistica.services.ProductoService;
+import com.ingeneotest.empresa_gestion_logistica.services.TransporteService;
 
 
 @Controller
 public class EntregaController implements EntregaControllerInterface {
     private final EntregaServiceInterface entregaService;
     private ClienteService clienteService;
+    private ProductoService productoService;
+    private AlmacenService almacenService;
+    private TransporteService transporteService;
 
     @Autowired
     public EntregaController(EntregaServiceInterface entregaService) {
@@ -32,6 +41,18 @@ public class EntregaController implements EntregaControllerInterface {
     @Autowired
     public void setClienteService(ClienteService clienteService) {
         this.clienteService = clienteService;
+    }
+    @Autowired
+    public void setProductoService(ProductoService productoService) {
+        this.productoService = productoService;
+    }
+    @Autowired
+    public void setAlmacenService(AlmacenService almacenService) {
+        this.almacenService = almacenService;
+    }
+    @Autowired
+    public void setTransporteService(TransporteService transporteService) {
+        this.transporteService = transporteService;
     }
 
     @Override
@@ -71,8 +92,14 @@ public class EntregaController implements EntregaControllerInterface {
             }
             model.addAttribute("entrega", entrega.get());
 
-            List<Cliente> clientesActivos = clienteService.obtenerClientesPorEstados(); // Obtener clientes por estados
+            List<Cliente> clientesActivos = clienteService.obtenerClientesPorEstados();
             model.addAttribute("clientes", clientesActivos);
+            List<Producto> ProductosActivos = productoService.obtenerProductosPorEstados();
+            model.addAttribute("productos", ProductosActivos);
+            List<Almacen> almacenesActivos = almacenService.obtenerAlmacenesPorEstados();
+            model.addAttribute("almacenes", almacenesActivos);
+            List<Transporte> transportesActivos = transporteService.obtenerTransportesPorEstados(); 
+            model.addAttribute("transportes", transportesActivos);
 
             model.addAttribute("accion", action);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));

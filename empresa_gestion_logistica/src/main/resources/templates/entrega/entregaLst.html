@@ -39,9 +39,9 @@
                             <tr th:each="entrega : ${entregas}">
                                 <td th:text="${entrega.id}"></td>
                                 <td th:text="${entrega.cliente.nombre}"></td>
-                                <td th:text="${entrega.producto}"></td>
-                                <td th:text="${entrega.almacen}"></td>
-                                <td th:text="${entrega.transporte}"></td>
+                                <td th:text="${entrega.producto.nombre}"></td>
+                                <td th:text="${entrega.almacen.nombre}"></td>
+                                <td th:text="${entrega.transporte.matricula}"></td>
                                 <td th:text="${entrega.numeroGuia}"></td>
                                 <td th:text="${entrega.fecRegistro}"></td>
                                 <td th:text="${entrega.fecEntrega}"></td>

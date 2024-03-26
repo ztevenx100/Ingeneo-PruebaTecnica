@@ -1,8 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.models;
 
-import java.time.OffsetDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,27 +24,36 @@ public class Entrega {
     @ManyToOne
     @JoinColumn(name = "ent_cli")
     private Cliente cliente;
-    @Column(name = "ent_pro", nullable = false)
-    private String producto;
-    @Column(name = "ent_alm", nullable = false)
-    private String almacen;
-    @Column(name = "ent_tra", nullable = false)
-    private String transporte;
+    // @Column(name = "ent_pro", nullable = false)
+    // private String producto;
+    @ManyToOne
+    @JoinColumn(name = "ent_pro")
+    private Producto producto;
+    // @Column(name = "ent_alm", nullable = false)
+    // private String almacen;
+    @ManyToOne
+    @JoinColumn(name = "ent_alm")
+    private Almacen almacen;
+    // @Column(name = "ent_tra", nullable = false)
+    // private String transporte;
+    @ManyToOne
+    @JoinColumn(name = "ent_tra")
+    private Transporte transporte;
     @Column(name = "ent_num_guia", nullable = false)
     private String numeroGuia;
     @Column(name = "ent_fec_registro", nullable = false, columnDefinition = "timestamp with time zone")
     //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
-    private OffsetDateTime fecRegistro;
+    private LocalDateTime fecRegistro;
     @Column(name = "ent_fec_entrega", nullable = false, columnDefinition = "timestamp with time zone")
     //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
-    private OffsetDateTime  fecEntrega;
+    private LocalDateTime  fecEntrega;
     @Column(name = "ent_estado", nullable = false, columnDefinition = "text default 'A' ")
     private String estado;
     
     public Entrega() {
     }
     
-    public Entrega(String id, Cliente cliente, String producto, String almacen, String transporte, String numeroGuia, OffsetDateTime fecRegistro, OffsetDateTime fecEntrega, String estado) {
+    public Entrega(String id, Cliente cliente, Producto producto, Almacen almacen, Transporte transporte, String numeroGuia, LocalDateTime fecRegistro, LocalDateTime fecEntrega, String estado) {
         this.id = id;
         this.cliente = cliente;
         this.producto = producto;
@@ -65,12 +72,8 @@ public class Entrega {
         this.id = id;
     }
     
-    // public String getCliente() {
-    //     return cliente;
-    // }
-    // public void setCliente(String cliente) {
-    //     this.cliente = cliente;
-    // }
+    // public String getCliente() {return cliente;}
+    // public void setCliente(String cliente) {this.cliente = cliente;}
     public Cliente getCliente() {
         return cliente;
     }
@@ -78,24 +81,26 @@ public class Entrega {
         this.cliente = cliente;
     }
     
-    public String getProducto() {
+    // public String getProducto() {return producto;}
+    // public void setProducto(String producto) {this.producto = producto;}
+    public Producto getProducto() {
         return producto;
     }
-    public void setProducto(String producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
     
-    public String getAlmacen() {
+    public Almacen getAlmacen() {
         return almacen;
     }
-    public void setAlmacen(String almacen) {
+    public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
     }
     
-    public String getTransporte() {
+    public Transporte getTransporte() {
         return transporte;
     }
-    public void setTransporte(String transporte) {
+    public void setTransporte(Transporte transporte) {
         this.transporte = transporte;
     }
 
@@ -106,25 +111,19 @@ public class Entrega {
         this.numeroGuia = numeroGuia;
     }
     
-    public OffsetDateTime getFecRegistro() {
+    public LocalDateTime getFecRegistro() {
         return fecRegistro;
     }
-    public void setFecRegistro(OffsetDateTime fecRegistro) {
+    public void setFecRegistro(LocalDateTime fecRegistro) {
         this.fecRegistro = fecRegistro;
     }
-    // public void setFecRegistro(String fecRegistro) {
-    //     this.fecRegistro = OffsetDateTime.parse(fecRegistro);
-    // }
     
-    public OffsetDateTime getFecEntrega() {
+    public LocalDateTime getFecEntrega() {
         return fecEntrega;
     }
-    public void setFecEntrega(OffsetDateTime fecEntrega) {
+    public void setFecEntrega(LocalDateTime fecEntrega) {
         this.fecEntrega = fecEntrega;
     }
-    // public void setFecEntrega(String fecEntrega) {
-    //     this.fecEntrega = OffsetDateTime.parse(fecEntrega);
-    // }
     
     public String getEstado() {
         return estado;

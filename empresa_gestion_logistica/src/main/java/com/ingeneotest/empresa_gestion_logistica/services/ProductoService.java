@@ -1,5 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,17 @@ public class ProductoService implements ProductoServiceInterface {
     @Override
     public List<Producto> obtenerTodosProductos() {
         return productoRepository.findAll();
+    }
+
+    @Override
+    public List<Producto> obtenerProductosPorEstados() {
+        List<String> l = Arrays.asList("A".split(","));
+        return obtenerProductosPorEstados(l);
+    }
+
+    @Override
+    public List<Producto> obtenerProductosPorEstados(List<String> estados) {
+        return productoRepository.findByEstadoIn(estados);
     }
 
     @Override
