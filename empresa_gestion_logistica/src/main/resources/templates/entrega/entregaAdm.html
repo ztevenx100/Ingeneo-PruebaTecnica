@@ -38,27 +38,27 @@
                             </label>
                             <label for="producto">
                                 <span class="text-span">Producto:</span>
-                                <input type="text" th:field="*{producto}" maxlength="50" required>
+                                <input type="text" th:field="*{producto}" name="producto"  maxlength="50" required>
                             </label>
                             <label for="almacen">
                                 <span class="text-span">Almacen:</span>
-                                <input type="text" th:field="*{almacen}" maxlength="50" required>
+                                <input type="text" th:field="*{almacen}" name="almacen" maxlength="50" required>
                             </label>
                             <label for="transporte">
                                 <span class="text-span">Transporte:</span>
-                                <input type="text" th:field="*{transporte}" maxlength="50" required>
+                                <input type="text" th:field="*{transporte}" name="transporte" maxlength="50" required>
                             </label>
                             <label for="numeroGuia">
                                 <span>Id Responsable:</span>
-                                <input type="text" th:field="*{numeroGuia}" maxlength="20" required>
+                                <input type="text" th:field="*{numeroGuia}" name="numeroGuia" maxlength="20" required>
                             </label>
                             <label for="fecRegistro">
                                 <span class="text-span">Fecha registro:</span>
-                                <input type="datetime-local" th:field="*{fecRegistro}" required>
+                                <input type="datetime-local" th:field="*{fecRegistro}" name="fecRegistro" pattern="yyyy-MM-dd'T'HH:mm:ssZ" required>
                             </label>
                             <label for="fecEntrega">
                                 <span class="text-span">Fecha entrega:</span>
-                                <input type="datetime-local" th:field="*{fecEntrega}" required>
+                                <input type="datetime-local" th:field="*{fecEntrega}" name="fecEntrega" pattern="yyyy-MM-dd'T'HH:mm:ssZ" required>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
@@ -114,9 +114,43 @@
             function validarFormulario(form) {
                 let validar = true;
 
+                console.log(typeof form.fecEntrega.value);
+                console.log(form.fecEntrega.value);
+                //convertirDate();
+                console.log(typeof form.fecEntrega.value);
+                console.log(form.fecEntrega.value);
+
                 validar &= validarCamposRequeridos();
 
                 return validar;
+            }
+
+            function convertirDate() {
+                let camposFecha = document.querySelectorAll('input[type="datetime-local"]');
+                let newDate;
+                for (var i = 0; i < camposFecha.length; i++) {
+                    newDate =new Date(camposFecha[i].value);
+
+                    // Extrae los componentes de la fecha y la hora
+                    let year = newDate.getFullYear();
+                    let month = ("0" + (newDate.getMonth() + 1)).slice(-2);
+                    let day = ("0" + newDate.getDate()).slice(-2);
+                    let hours = ("0" + newDate.getHours()).slice(-2);
+                    let minutes = ("0" + newDate.getMinutes()).slice(-2);
+                    let seconds = ("0" + newDate.getSeconds()).slice(-2);
+                    let milliseconds = ("00" + newDate.getMilliseconds()).slice(-3);
+                    let timezoneOffsetMinutes = newDate.getTimezoneOffset();
+
+                    // Formatea la zona horaria en formato HH:MM
+                    let timezoneHours = Math.abs(timezoneOffsetMinutes / 60);
+                    let timezoneMinutes = Math.abs(timezoneOffsetMinutes % 60);
+                    let timezoneString = `${timezoneHours}:${("0" + timezoneMinutes).slice(-2)}`;
+
+                    // Construye la cadena timestamptz en formato YYYY-MM-DD HH:MM:SS.SSS±HH:MM
+                    let timestamptzString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}${timezoneOffsetMinutes >= 0 ? '-' : '+'}${timezoneString}`;
+                    console.log(timestamptzString);
+                    camposFecha[i].value = timestamptzString.toISOString().slice(0, 16);
+                }
             }
 
             function validarFormato(input) {

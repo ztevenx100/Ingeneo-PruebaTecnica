@@ -1,6 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.models;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,19 +34,19 @@ public class Entrega {
     private String transporte;
     @Column(name = "ent_num_guia", nullable = false)
     private String numeroGuia;
-    @Column(name = "ent_fec_registro", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Timestamp fecRegistro;
-    @Column(name = "ent_fec_entrega", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Timestamp fecEntrega;
+    @Column(name = "ent_fec_registro", nullable = false, columnDefinition = "timestamp with time zone")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
+    private OffsetDateTime fecRegistro;
+    @Column(name = "ent_fec_entrega", nullable = false, columnDefinition = "timestamp with time zone")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
+    private OffsetDateTime  fecEntrega;
     @Column(name = "ent_estado", nullable = false, columnDefinition = "text default 'A' ")
     private String estado;
     
     public Entrega() {
     }
     
-    public Entrega(String id, Cliente cliente, String producto, String almacen, String transporte, String numeroGuia, Timestamp fecRegistro, Timestamp fecEntrega, String estado) {
+    public Entrega(String id, Cliente cliente, String producto, String almacen, String transporte, String numeroGuia, OffsetDateTime fecRegistro, OffsetDateTime fecEntrega, String estado) {
         this.id = id;
         this.cliente = cliente;
         this.producto = producto;
@@ -106,19 +106,25 @@ public class Entrega {
         this.numeroGuia = numeroGuia;
     }
     
-    public Timestamp getFecRegistro() {
+    public OffsetDateTime getFecRegistro() {
         return fecRegistro;
     }
-    public void setFecRegistro(Timestamp fecRegistro) {
+    public void setFecRegistro(OffsetDateTime fecRegistro) {
         this.fecRegistro = fecRegistro;
     }
+    // public void setFecRegistro(String fecRegistro) {
+    //     this.fecRegistro = OffsetDateTime.parse(fecRegistro);
+    // }
     
-    public Timestamp getFecEntrega() {
+    public OffsetDateTime getFecEntrega() {
         return fecEntrega;
     }
-    public void setFecEntrega(Timestamp fecEntrega) {
+    public void setFecEntrega(OffsetDateTime fecEntrega) {
         this.fecEntrega = fecEntrega;
     }
+    // public void setFecEntrega(String fecEntrega) {
+    //     this.fecEntrega = OffsetDateTime.parse(fecEntrega);
+    // }
     
     public String getEstado() {
         return estado;
