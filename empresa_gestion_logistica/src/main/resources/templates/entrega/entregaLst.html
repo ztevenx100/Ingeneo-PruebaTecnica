@@ -38,13 +38,13 @@
                         <tbody>
                             <tr th:each="entrega : ${entregas}">
                                 <td th:text="${entrega.id}"></td>
-                                <td th:text="${entrega.cliente.nombre}"></td>
+                                <td th:text="${entrega.cliente.id} + ' - ' + ${entrega.cliente.nombre}"></td>
                                 <td th:text="${entrega.producto.nombre}"></td>
                                 <td th:text="${entrega.almacen.nombre}"></td>
                                 <td th:text="${entrega.transporte.matricula}"></td>
                                 <td th:text="${entrega.numeroGuia}"></td>
-                                <td th:text="${entrega.fecRegistro}"></td>
-                                <td th:text="${entrega.fecEntrega}"></td>
+                                <td th:text="${#temporals.format(entrega?.fecRegistro, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${#temporals.format(entrega?.fecEntrega, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${entrega.estado}"></td>
                                 <td><a class="btn-editar" th:href="@{/entrega/upd/{id}(id=${entrega.id})}">Editar</a></td>
                                 <td><a class="btn-eliminar" th:onclick="'javascript:confirmarEliminacion(\'' + |@{/entrega/eliminar/{id}(id=${entrega.id})}| + '\')'" >Eliminar</a></td>

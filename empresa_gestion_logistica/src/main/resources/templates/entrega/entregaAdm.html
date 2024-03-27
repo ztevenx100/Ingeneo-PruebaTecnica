@@ -33,24 +33,28 @@
                             <label for="cliente">
                                 <span>Cliente:</span>
                                 <select id="cliente" name="cliente" th:field="*{cliente}" required>
+                                    <option value=""/>
                                     <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
                                 </select>
                             </label>
                             <label for="producto">
                                 <span class="text-span">Producto:</span>
                                 <select id="producto" name="producto" th:field="*{producto}" required>
+                                    <option value=""/>
                                     <option th:each="producto : ${productos}" th:value="${producto.id}" th:text="${producto.nombre}"></option>
                                 </select>
                             </label>
                             <label for="almacen">
                                 <span class="text-span">Almacen:</span>
                                 <select id="almacen" name="almacen" th:field="*{almacen}" required>
+                                    <option value=""/>
                                     <option th:each="almacen : ${almacenes}" th:value="${almacen.id}" th:text="${almacen.nombre}"></option>
                                 </select>
                             </label>
                             <label for="transporte">
                                 <span class="text-span">Transporte:</span>
                                 <select id="transporte" name="transporte" th:field="*{transporte}" required>
+                                    <option value=""/>
                                     <option th:each="transporte : ${transportes}" th:value="${transporte.id}" th:text="${transporte.matricula}"></option>
                                 </select>
                             </label>
@@ -60,7 +64,7 @@
                             </label>
                             <label for="fecRegistro">
                                 <span class="text-span">Fecha registro:</span>
-                                <input type="datetime-local" th:field="*{fecRegistro}" name="fecRegistro" required>
+                                <input type="datetime-local" th:field="*{fecRegistro}" name="fecRegistro" readonly required>
                             </label>
                             <label for="fecEntrega">
                                 <span class="text-span">Fecha entrega:</span>

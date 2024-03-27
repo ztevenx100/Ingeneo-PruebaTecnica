@@ -1,5 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -88,6 +89,7 @@ public class EntregaController implements EntregaControllerInterface {
                 Entrega vo = new Entrega();
                 vo.setId(UUID.randomUUID().toString());
                 vo.setEstado("A");
+                vo.setFecRegistro(LocalDateTime.now());
                 entrega = Optional.of(vo);
             }
             model.addAttribute("entrega", entrega.get());
