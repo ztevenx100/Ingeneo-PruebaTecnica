@@ -1,5 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,17 @@ public class ClienteService implements ClienteServiceInterface {
     }
 
     @Override
+    public List<Cliente> obtenerClientesPorEstados() {
+        List<String> l = Arrays.asList("A".split(","));
+        return obtenerClientesPorEstados(l);
+    }
+
+    @Override
+    public List<Cliente> obtenerClientesPorEstados(List<String> estados) {
+        return clienteRepository.findByEstadoIn(estados);
+    }
+
+    @Override
     public Optional<Cliente> obtenerClientePorId(String id) {
         return clienteRepository.findById(id);
     }
@@ -35,6 +47,6 @@ public class ClienteService implements ClienteServiceInterface {
     public void eliminarCliente(String id) {
         clienteRepository.deleteById(id);
     }
-    
+
 }
 

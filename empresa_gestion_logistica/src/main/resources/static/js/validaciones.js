@@ -39,7 +39,7 @@ function validarNumero(valor) {
 // Función para validar campos requeridos
 function validarCamposRequeridos() {
     const requiredElements = document.querySelectorAll('[required]');
-    console.log('validarCamposRequeridos');
+    //console.log('validarCamposRequeridos');
     let hayCamposVacios = false;
 
     // Iterar sobre los elementos y verificar si están vacíos

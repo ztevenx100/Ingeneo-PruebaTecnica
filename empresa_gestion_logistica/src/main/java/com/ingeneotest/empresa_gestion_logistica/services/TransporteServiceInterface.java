@@ -10,6 +10,10 @@ public interface TransporteServiceInterface {
     public static final String TIPO_MARITIMO = "M";
 
     List<Transporte> obtenerTodosTransportes();
+    
+    List<Transporte> obtenerTransportesPorEstados();
+    
+    List<Transporte> obtenerTransportesPorEstados(List<String> estados);
 
     Optional<Transporte> obtenerTransportePorId(String id);
 

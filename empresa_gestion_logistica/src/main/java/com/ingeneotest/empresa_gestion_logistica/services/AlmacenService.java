@@ -1,5 +1,6 @@
 package com.ingeneotest.empresa_gestion_logistica.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,17 @@ public class AlmacenService implements AlmacenServiceInterface {
     @Override
     public List<Almacen> obtenerTodosAlmacenes() {
         return almacenRepository.findAll();
+    }
+
+    @Override
+    public List<Almacen> obtenerAlmacenesPorEstados() {
+        List<String> l = Arrays.asList("A".split(","));
+        return obtenerAlmacenesPorEstados(l);
+    }
+
+    @Override
+    public List<Almacen> obtenerAlmacenesPorEstados(List<String> estados) {
+        return almacenRepository.findByEstadoIn(estados);
     }
 
     @Override

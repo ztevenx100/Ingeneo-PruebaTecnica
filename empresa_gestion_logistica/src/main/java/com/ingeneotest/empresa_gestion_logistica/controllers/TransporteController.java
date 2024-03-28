@@ -84,8 +84,9 @@ public class TransporteController implements TransporteControllerInterface{
     @Override
     @PostMapping("/transporte/{action}/{id}")
     public String guardarTransporte(@PathVariable("action") String action, @PathVariable("id") String id, @ModelAttribute Transporte transporte, Model model, RedirectAttributes redirectAttributes) {
-        String path = "transporte/transporteAdm";
         TransporteFactory factory = null;
+        String path = "transporte/transporteAdm";
+        String msg = "";
         System.out.println("post - guardarTransporte - id: " + id + " - action: " + action);
         try {
             path = "redirect:/transporte/upd/" + transporte.getId();
@@ -111,9 +112,11 @@ public class TransporteController implements TransporteControllerInterface{
             model.addAttribute("accion", "upd");
             redirectAttributes.addFlashAttribute("notificacion", "Transporte " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
-            path = "error";
+            path = "redirect:/transporte/add/0";
             System.out.println(e);
-            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " transporte");
+            System.out.println(e.getMessage());
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Transporte";
+            redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;
     }

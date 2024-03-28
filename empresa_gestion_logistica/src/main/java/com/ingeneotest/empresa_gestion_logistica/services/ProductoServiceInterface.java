@@ -8,6 +8,10 @@ import com.ingeneotest.empresa_gestion_logistica.models.Producto;
 public interface ProductoServiceInterface {
 
     List<Producto> obtenerTodosProductos();
+    
+    List<Producto> obtenerProductosPorEstados();
+    
+    List<Producto> obtenerProductosPorEstados(List<String> estados);
 
     Optional<Producto> obtenerProductoPorId(String id);
 
