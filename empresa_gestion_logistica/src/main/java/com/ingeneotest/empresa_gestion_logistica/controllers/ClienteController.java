@@ -73,6 +73,7 @@ public class ClienteController implements ClienteControllerInterface {
     @PostMapping("/cliente/{action}/{id}")
     public String guardarCliente(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Cliente cliente, Model model, RedirectAttributes redirectAttributes) {
         String path = "cliente/clienteAdm";
+        String msg = "";
         System.out.println("post - guardarCliente - id; " + id);
         try {
             path = "redirect:/cliente/upd/" + cliente.getId();
@@ -81,9 +82,11 @@ public class ClienteController implements ClienteControllerInterface {
             model.addAttribute("accion", "upd");
             redirectAttributes.addFlashAttribute("notificacion", "Cliente " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
-            path = "error";
+            path = "redirect:/cliente/add/0";
             System.out.println(e);
-            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " cliente");
+            System.out.println(e.getMessage());
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Cliente";
+            redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;
     }

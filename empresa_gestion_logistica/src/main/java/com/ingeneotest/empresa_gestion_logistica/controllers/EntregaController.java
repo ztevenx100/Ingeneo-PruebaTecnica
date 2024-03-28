@@ -90,6 +90,7 @@ public class EntregaController implements EntregaControllerInterface {
                 vo.setId(UUID.randomUUID().toString());
                 vo.setEstado("A");
                 vo.setFecRegistro(LocalDateTime.now());
+                vo.setNumeroGuia(this.generarNumeroGuia());
                 entrega = Optional.of(vo);
             }
             model.addAttribute("entrega", entrega.get());
@@ -113,11 +114,19 @@ public class EntregaController implements EntregaControllerInterface {
         
         return path;
     }
-    
+
+    public String generarNumeroGuia() {
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString().replaceAll("-", "");
+        String numeroGuia = uuidString.substring(0, 10).toUpperCase();
+        return numeroGuia;
+    }
+
     @Override
     @PostMapping("/entrega/{action}/{id}")
     public String guardarEntrega(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Entrega entrega, Model model, RedirectAttributes redirectAttributes) {
         String path = "entrega/entregaAdm";
+        String msg = "";
         System.out.println("post - guardarEntrega - id; " + id);
         try {
             path = "redirect:/entrega/upd/" + entrega.getId();
@@ -126,9 +135,11 @@ public class EntregaController implements EntregaControllerInterface {
             model.addAttribute("accion", "upd");
             redirectAttributes.addFlashAttribute("notificacion", "Entrega " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
-            path = "error";
+            path = "redirect:/entrega/add/0";
             System.out.println(e);
-            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Entrega");
+            System.out.println(e.getMessage());
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Entrega";
+            redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;
     }

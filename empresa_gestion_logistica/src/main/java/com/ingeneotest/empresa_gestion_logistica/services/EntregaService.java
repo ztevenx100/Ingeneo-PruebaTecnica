@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.ingeneotest.empresa_gestion_logistica.models.Entrega;
 import com.ingeneotest.empresa_gestion_logistica.repositories.EntregaRepository;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,7 @@ public class EntregaService implements EntregaServiceInterface {
     }
 
     @Override
-    public Entrega guardarEntrega(Entrega entrega) {
+    public Entrega guardarEntrega(Entrega entrega) throws DataIntegrityViolationException {
         return entregaRepository.save(entrega);
     }
 

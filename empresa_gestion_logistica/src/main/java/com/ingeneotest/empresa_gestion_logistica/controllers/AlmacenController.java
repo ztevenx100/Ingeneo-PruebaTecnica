@@ -78,6 +78,7 @@ public class AlmacenController implements AlmacenControllerInterface{
     @PostMapping("/almacen/{action}/{id}")
     public String guardarAlmacen(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Almacen Almacen, Model model, RedirectAttributes redirectAttributes) {
         String path = "Almacen/almacenAdm";
+        String msg = "";
         System.out.println("post - guardarAlmacen - id; " + id);
         try {
             path = "redirect:/almacen/upd/" + Almacen.getId();
@@ -86,9 +87,11 @@ public class AlmacenController implements AlmacenControllerInterface{
             model.addAttribute("accion", "upd");
             redirectAttributes.addFlashAttribute("notificacion", "Almacen " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
-            path = "error";
+            path = "redirect:/almacen/add/0";
             System.out.println(e);
-            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " almacen");
+            System.out.println(e.getMessage());
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Almacen";
+            redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;
     }

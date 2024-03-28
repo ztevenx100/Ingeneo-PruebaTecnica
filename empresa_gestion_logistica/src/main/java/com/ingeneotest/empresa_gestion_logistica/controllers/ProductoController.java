@@ -77,6 +77,7 @@ public class ProductoController implements ProductoControllerInterface{
     @PostMapping("/producto/{action}/{id}")
     public String guardarProducto(@PathVariable("action") String action, @PathVariable String id, @ModelAttribute Producto producto, Model model, RedirectAttributes redirectAttributes) {
         String path = "producto/productoAdm";
+        String msg = "";
         System.out.println("post - guardarProducto - id; " + id);
         try {
             path = "redirect:/producto/upd/" + producto.getId();
@@ -85,9 +86,11 @@ public class ProductoController implements ProductoControllerInterface{
             model.addAttribute("accion", "upd");
             redirectAttributes.addFlashAttribute("notificacion", "Producto " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
         } catch (Exception e) {
-            path = "error";
+            path = "redirect:/producto/add/0";
             System.out.println(e);
-            redirectAttributes.addFlashAttribute("error", "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " producto");
+            System.out.println(e.getMessage());
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Producto";
+            redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;
     }
