@@ -11,6 +11,7 @@
     <body>
         <main class="container mx-auto" >
             <div th:insert="~{/navbar :: navbar}"></div>
+            <aside th:insert="~{/fragments/backButton :: btnBack}" th:with="pagina='producto'"></aside>
             
             <section class="min-h-screen " >
                 
