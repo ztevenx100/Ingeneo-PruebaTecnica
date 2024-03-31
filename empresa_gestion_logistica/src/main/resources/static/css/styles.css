@@ -196,8 +196,8 @@ aside.toast{
     opacity: 0;
     visibility: hidden;
     position: fixed;
-    left: 10px;
     bottom: 10px;
+    left: 10px;
     width: 300px; /*max-content*/
     min-height: 80px;
     display: flex;
@@ -266,4 +266,36 @@ aside.toast{
 .input-readonly::-webkit-inner-spin-button,
 .input-readonly::-webkit-outer-spin-button {
     display: none;
+}
+
+section.back-button{
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 10px 10px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: var(--btn-bg);
+    backdrop-filter: blur(2px);
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: ease;
+    z-index: 5;
+    &:hover{
+        background-color: var(--btn-bg-hover);
+    }
+    & a{
+        width: 100%;
+        height: 100%;
+        /* background-color: var(--btn-bg); */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 }
