@@ -18,6 +18,8 @@ public class Entrega {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ent_id", nullable = false)
     private String id;
+    @Column(name = "ent_tipo", nullable = false, columnDefinition = "text default 'T' ")
+    private String tipo;
     // @Column(name = "ent_cli", nullable = false)
     // private String cliente;
     //@Column(name = "ent_cli", nullable = false)
@@ -42,10 +44,8 @@ public class Entrega {
     @Column(name = "ent_num_guia", nullable = false)
     private String numeroGuia;
     @Column(name = "ent_fec_registro", nullable = false, columnDefinition = "timestamp with time zone")
-    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
     private LocalDateTime fecRegistro;
     @Column(name = "ent_fec_entrega", nullable = false, columnDefinition = "timestamp with time zone")
-    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mmZ")
     private LocalDateTime  fecEntrega;
     @Column(name = "ent_estado", nullable = false, columnDefinition = "text default 'A' ")
     private String estado;
@@ -53,8 +53,9 @@ public class Entrega {
     public Entrega() {
     }
     
-    public Entrega(String id, Cliente cliente, Producto producto, Almacen almacen, Transporte transporte, String numeroGuia, LocalDateTime fecRegistro, LocalDateTime fecEntrega, String estado) {
+    public Entrega(String id, Cliente cliente, Producto producto, Almacen almacen, Transporte transporte, String numeroGuia, LocalDateTime fecRegistro, LocalDateTime fecEntrega, String estado, String tipo) {
         this.id = id;
+        this.tipo = tipo;
         this.cliente = cliente;
         this.producto = producto;
         this.almacen = almacen;
@@ -70,6 +71,13 @@ public class Entrega {
     }
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
     
     // public String getCliente() {return cliente;}
@@ -142,7 +150,9 @@ public class Entrega {
         + ", numeroGuia=" + numeroGuia
         + ", fecRegistro=" + fecRegistro
         + ", fecEntrega=" + fecEntrega
-        + ", estado=" + estado + "]";
+        + ", estado=" + estado 
+        + ", tipo=" + tipo 
+        + "]";
     }
 
 

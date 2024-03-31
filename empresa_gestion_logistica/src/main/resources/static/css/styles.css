@@ -1,6 +1,7 @@
 :root{
     --bg-primary: #fca311;
     --bg-second: #C42021;
+    --color-readonly:#e4d9ff;
     --bg-body: #e4d9ff;
     --bg-main: #e4d9ff;
     --border-color-important: var(--bg-primary);
@@ -138,6 +139,9 @@ fieldset{
         }
         & input, & select{
             width: clamp(100px, 20rem ,250px);
+            &:invalid{
+                border: 1px solid var(--bg-second);
+            }
         }
     }
     & .btn-submit{
@@ -246,4 +250,20 @@ aside.toast{
             background-color: var(--bg-second);
         }
     }
+}
+
+.input-readonly{
+    pointer-events: none;
+    background-color: var(--color-readonly);
+}
+
+.color-readonly{
+    background-color: var(--color-readonly);
+}
+
+/* Estilo para ocultar el ícono de desplegable */
+.input-readonly::-ms-expand,
+.input-readonly::-webkit-inner-spin-button,
+.input-readonly::-webkit-outer-spin-button {
+    display: none;
 }
