@@ -32,8 +32,8 @@
                                 <span>Tipo de Almacen:</span>
                                 <select id="tipo" name="tipo" th:field="*{tipo}" required>
                                     <option value="" />
-                                    <option value="B">Bodega</option>
-                                    <option value="P">Puerto</option>
+                                    <option value="T">Bodega</option>
+                                    <option value="M">Puerto</option>
                                 </select>
                             </label>
                             <label for="nombre">
@@ -50,7 +50,7 @@
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
-                                <select id="estado" name="estado" th:field="*{estado}" maxlength="50" required>
+                                <select id="estado" name="estado" th:field="*{estado}" required>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
