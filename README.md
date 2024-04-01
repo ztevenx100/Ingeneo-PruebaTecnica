@@ -21,4 +21,5 @@ Pagina web de la prueba tecnica para Ingeneo
     - Justificación de las tecnologías empleadas y patrones de diseño empleados.
 
 ### Diagrama entidad relacion
-![Diagrama E - R - prueba tecnica drawio](https://github.com/ztevenx100/Ingeneo-PruebaTecnica/assets/50757337/034ed181-0a9a-4641-8e28-fd43c2aaece0)
+![Diagrama E - R - prueba tecnica drawio](https://github.com/ztevenx100/Ingeneo-PruebaTecnica/assets/50757337/80e573b4-6b47-4c81-a181-0551bc9e2f30)
+
