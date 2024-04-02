@@ -19,16 +19,16 @@ public class Producto {
     @Column(name = "pro_nombre", nullable = false)
     private String nombre;
     @Column(name = "pro_cantidad", nullable = false, columnDefinition = "numeric(6,0) default 0 ")
-    private Integer cantidad;
+    private Double cantidad;
     @Column(name = "pro_valor_unitario", nullable = false, columnDefinition = "numeric(12,2) default 0 ")
-    private Integer valorUnitario;
+    private Double valorUnitario;
     @Column(name = "pro_estado", nullable = false, columnDefinition = "text default 'A' ")
     private String estado;
     
     public Producto() {
     }
     
-    public Producto(String id, String tipo, String nombre, Integer cantidad, Integer valorUnitario, String estado) {
+    public Producto(String id, String tipo, String nombre, Double cantidad, Double valorUnitario, String estado) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -58,17 +58,17 @@ public class Producto {
         this.nombre = nombre;
     }
     
-    public Integer getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
     
-    public Integer getValorUnitario() {
+    public Double getValorUnitario() {
         return valorUnitario;
     }
-    public void setValorUnitario(Integer valorUnitario) {
+    public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
     

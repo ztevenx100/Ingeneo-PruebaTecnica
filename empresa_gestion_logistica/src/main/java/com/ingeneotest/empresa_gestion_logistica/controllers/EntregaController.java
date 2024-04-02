@@ -132,8 +132,17 @@ public class EntregaController implements EntregaControllerInterface {
             path = "redirect:/entrega/upd/" + entrega.getId();
             entregaService.guardarEntrega(entrega);
             //new ResponseEntity<>(nuevoEntrega, HttpStatus.CREATED)
+            msg = "Entrega " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + System.lineSeparator();
+
+            if ("add".equalsIgnoreCase(action)) {
+                Producto v_pro = entrega.getProducto();
+                v_pro.setCantidad(entrega.getProducto().getCantidad() - entrega.getCantidad());
+                productoService.guardarProducto(v_pro);
+                msg += "Cantidad del producto " + v_pro.getId() + "actualizado";
+            }
+            
             model.addAttribute("accion", "upd");
-            redirectAttributes.addFlashAttribute("notificacion", "Entrega " + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado"));
+            redirectAttributes.addFlashAttribute("notificacion", msg);
         } catch (Exception e) {
             path = "redirect:/entrega/add/0";
             System.out.println(e);
