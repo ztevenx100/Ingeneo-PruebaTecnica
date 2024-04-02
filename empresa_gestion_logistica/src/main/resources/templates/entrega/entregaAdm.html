@@ -25,6 +25,8 @@
                             <legend>Formulario</legend>
                             
                             <input type="hidden" name="action" th:value="${action}">
+                            <input type="hidden" name="cantidadTotal" >
+                            <input type="hidden" name="valorUnitario" >
                             
                             <label for="id">
                                 <span>Codigo:</span>
@@ -49,7 +51,7 @@
                                 <span class="text-span">Producto:</span>
                                 <select id="producto" name="producto" th:field="*{producto}" onchange="productoChanges(this, true)" required>
                                     <option value=""/>
-                                    <option th:each="producto : ${productos}" th:tipo="${producto.tipo}" th:value="${producto.id}" th:text="${producto.nombre}"></option>
+                                    <option th:each="producto : ${productos}" th:tipo="${producto.tipo}" th:cantidadtotal="${producto.cantidad}" th:valorunitario="${producto.valorUnitario}" th:value="${producto.id}" th:text="${producto.nombre}"></option>
                                 </select>
                             </label>
                             <label for="almacen">
@@ -77,6 +79,22 @@
                             <label for="fecEntrega">
                                 <span class="text-span">Fecha entrega:</span>
                                 <input type="datetime-local" th:field="*{fecEntrega}" name="fecEntrega" required>
+                            </label>
+                            <label for="cantidad">
+                                <span class="text-span">Cantidad:</span>
+                                <input type="text" th:field="*{cantidad}" name="cantidad" oninput="validarCampoNumerico(this)" onchange="calcularDescuento()" maxlength="20" required>
+                            </label>
+                            <label for="valorTotal">
+                                <span class="text-span">Valor Total:</span>
+                                <input type="text" th:field="*{valorTotal}" name="valorTotal" oninput="validarCampoNumerico(this)" maxlength="20" readonly required>
+                            </label>
+                            <label for="valorDescuento">
+                                <span class="text-span">Descuento otorgado:</span>
+                                <input type="text" th:field="*{valorDescuento}" name="valorDescuento" oninput="validarCampoNumerico(this)" maxlength="20" readonly equired>
+                            </label>
+                            <label for="totalDescuento">
+                                <span class="text-span">Total con descuento:</span>
+                                <input type="text" name="totalDescuento" oninput="validarCampoNumerico(this)" maxlength="20" readonly equired>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
@@ -117,6 +135,7 @@
             function ini() {
                 let form = document.forms[0];
                 productoChanges(form.producto, false);
+                totalDescuentoChange();
             }
 
             function productoChanges(input, dataLaundering) {
@@ -145,6 +164,44 @@
                     }
                 }
                 if(dataLaundering) form.transporte.value = '';
+
+                form.cantidadTotal.value = elemSelecionado.getAttribute("cantidadtotal");
+                form.valorUnitario.value = elemSelecionado.getAttribute("valorunitario");
+            }
+
+            function calcularDescuento() {
+                let form = document.forms[0];
+                let cantidad = form.cantidad;
+                let cantidadTotal = parseFloat(form.cantidadTotal.value);
+                let valorTotal = form.valorTotal;
+                let valorUnitario = parseFloat(form.valorUnitario.value);
+                let descuento = 0.0;
+                console.log("cantidadTotal: " + cantidadTotal + " - cantidad: " + cantidad.value);
+
+                if (parseFloat(cantidad.value) > cantidadTotal) {
+                    cantidad.setCustomValidity("La cantidad no puede ser mayor a " + cantidadTotal);
+                    return;
+                } else {
+                    cantidad.setCustomValidity("");
+                }
+                
+                valorTotal.value = parseFloat(cantidad.value) * valorUnitario;
+                if (parseFloat(cantidad.value) > 10.0) {
+                    if (form.tipo.value === 'T') {
+                        descuento = valorTotal.value * 0.05;
+                    } else {
+                        descuento = valorTotal.value * 0.03;
+                    }
+                }
+                form.valorDescuento.value = descuento;
+                totalDescuentoChange();
+
+                event.preventDefault();
+            }
+
+            function totalDescuentoChange() {
+                let form = document.forms[0];
+                form.totalDescuento.value = form.valorTotal.value - form.valorDescuento.value;
             }
 
             function enviarFormulario(event) {

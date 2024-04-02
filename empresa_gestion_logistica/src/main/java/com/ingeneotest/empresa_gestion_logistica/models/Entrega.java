@@ -47,13 +47,33 @@ public class Entrega {
     private LocalDateTime fecRegistro;
     @Column(name = "ent_fec_entrega", nullable = false, columnDefinition = "timestamp with time zone")
     private LocalDateTime  fecEntrega;
+    @Column(name = "ent_cantidad", nullable = false, columnDefinition = "numeric default 0 ")
+    private Double cantidad;
+    @Column(name = "ent_valor_total", nullable = false, columnDefinition = "numeric default 0 ")
+    private Double valorTotal;
+    @Column(name = "ent_valor_descuento", nullable = false, columnDefinition = "numeric default 0 ")
+    private Double valorDescuento;
+    
     @Column(name = "ent_estado", nullable = false, columnDefinition = "text default 'A' ")
     private String estado;
     
     public Entrega() {
     }
     
-    public Entrega(String id, Cliente cliente, Producto producto, Almacen almacen, Transporte transporte, String numeroGuia, LocalDateTime fecRegistro, LocalDateTime fecEntrega, String estado, String tipo) {
+    public Entrega(
+            String id
+            , String tipo
+            , Cliente cliente
+            , Producto producto
+            , Almacen almacen
+            , Transporte transporte
+            , String numeroGuia
+            , LocalDateTime fecRegistro
+            , LocalDateTime fecEntrega
+            , Double cantidad
+            , Double valorTotal
+            , Double valorDescuento
+            , String estado) {
         this.id = id;
         this.tipo = tipo;
         this.cliente = cliente;
@@ -63,6 +83,9 @@ public class Entrega {
         this.numeroGuia = numeroGuia;
         this.fecRegistro = fecRegistro;
         this.fecEntrega = fecEntrega;
+        this.cantidad = cantidad;
+        this.valorTotal = valorTotal;
+        this.valorDescuento = valorDescuento;
         this.estado = estado;
     }
     
@@ -111,7 +134,7 @@ public class Entrega {
     public void setTransporte(Transporte transporte) {
         this.transporte = transporte;
     }
-
+    
     public String getNumeroGuia() {
         return numeroGuia;
     }
@@ -131,6 +154,27 @@ public class Entrega {
     }
     public void setFecEntrega(LocalDateTime fecEntrega) {
         this.fecEntrega = fecEntrega;
+    }
+    
+    public Double getCantidad() {
+        return cantidad;
+    }
+    public void setCantidad(Double cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Double getValorDescuento() {
+        return valorDescuento;
+    }
+    public void setValorDescuento(Double valorDescuento) {
+        this.valorDescuento = valorDescuento;
     }
     
     public String getEstado() {
@@ -154,6 +198,6 @@ public class Entrega {
         + ", tipo=" + tipo 
         + "]";
     }
-
-
+    
+    
 }
