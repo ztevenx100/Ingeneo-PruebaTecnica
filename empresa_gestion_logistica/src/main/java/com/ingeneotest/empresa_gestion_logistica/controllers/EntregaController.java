@@ -58,14 +58,16 @@ public class EntregaController implements EntregaControllerInterface {
 
     @Override
     @GetMapping("/entrega")
-    public String obtenerTodosEntregas(Model model) {
+    public String obtenerTodosEntregas(Model model, @ModelAttribute("entregaFiltro") Entrega entregaFiltro) {
         String path = "Entrega/EntregaLst";
 
         try {
-            List<Entrega> l = entregaService.obtenerTodosEntregas();
+            System.out.println("entregaFiltro: " + entregaFiltro);
+            List<Entrega> l = entregaService.obtenerEntregasFiltados(entregaFiltro);
             model.addAttribute("entregas", l);
             Entrega vo = new Entrega();
             model.addAttribute("entregaNuevo", vo);
+            model.addAttribute("entregaFiltro", vo);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));
             model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {
@@ -147,7 +149,7 @@ public class EntregaController implements EntregaControllerInterface {
             path = "redirect:/entrega/add/0";
             System.out.println(e);
             System.out.println(e.getMessage());
-            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionado":"actualizado") + " Entrega";
+            msg = "Error "  + (("add".equalsIgnoreCase(action))?"adicionada":"actualizada") + " Entrega";
             redirectAttributes.addFlashAttribute("error", msg);
         }
         return path;

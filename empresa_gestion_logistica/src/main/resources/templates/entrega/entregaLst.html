@@ -22,7 +22,7 @@
                     <table class=" tabla-listado-elements my-6" id="tableEntrega">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Codigo</th>
                                 <th>Cliente</th>
                                 <th>Producto</th>
                                 <th>Almacen</th>
@@ -56,6 +56,9 @@
                 <aside class="panel">
                     <a type="button" class="btn-adicionar" th:href="@{/entrega/add/{id}(id='0')}" > Añadir </a>
                 </aside>
+                <aside class="panel filtro">
+                    <a type="button" class="btn-filtrar" id="btnFiltrar" onclick="abrirDialogFiltro()" > Filtrar </a>
+                </aside>
 
             </section>
 
@@ -74,6 +77,76 @@
             </aside>
             
         </main>
+        
+        <dialog id="dialogFilter">
+            <form class="form-filtro" th:object="${entregaFiltro}" th:action="@{'/entrega'} " method="get">
+                <fieldset class="general-form">
+                    <legend class="legend-dialog">
+                        Filtro
+                        <button type="button" onclick="cerrarDialogFiltro()">X</button>
+                    </legend>
+                    <label for="id">
+                        <span>Codigo:</span>
+                        <input type="text" name="id" th:field="*{id}" maxlength="50">
+                    </label>
+                    <label for="tipo">
+                        <span>Tipo:</span>
+                        <select id="tipo" name="tipo" th:field="*{tipo}" >
+                            <option value="" />
+                            <option value="M">Maritimo</option>
+                            <option value="T">Terrestre</option>
+                        </select>
+                    </label>
+                    <label for="cliente">
+                        <span>Cliente:</span>
+                        <input type="text" name="cliente" th:field="*{cliente.id}" maxlength="50">
+                        <!-- <select id="cliente" name="cliente" th:field="*{cliente}" required>
+                            <option value=""/>
+                            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+                        </select> -->
+                    </label>
+                    <label for="producto">
+                        <span class="text-span">Producto:</span>
+                        <input type="text" name="producto" th:field="*{producto.id}" maxlength="50">
+                        <!-- <select id="producto" name="producto" th:field="*{producto}" onchange="productoChanges(this, true)" >
+                            <option value=""/>
+                            <option th:each="producto : ${productos}" th:tipo="${producto.tipo}" th:cantidadtotal="${producto.cantidad}" th:valorunitario="${producto.valorUnitario}" th:value="${producto.id}" th:text="${producto.nombre}"></option>
+                        </select> -->
+                    </label>
+                    <label for="almacen">
+                        <span class="text-span">Almacen:</span>
+                        <input type="text" name="almacen" th:field="*{almacen.id}" maxlength="50">
+                        <!-- <select id="almacen" name="almacen" th:field="*{almacen}" >
+                            <option value=""/>
+                            <option th:each="almacen : ${almacenes}" th:tipo="${almacen.tipo}" th:value="${almacen.id}" th:text="${almacen.nombre}"></option>
+                        </select> -->
+                    </label>
+                    <label for="transporte">
+                        <span class="text-span">Transporte:</span>
+                        <input type="text" name="transporte" th:field="*{transporte.id}" maxlength="50">
+                        <!-- <select id="transporte" name="transporte" th:field="*{transporte}" >
+                            <option value=""/>
+                            <option th:each="transporte : ${transportes}" th:tipo="${transporte.tipo}" th:value="${transporte.id}" th:text="${transporte.matricula}"></option>
+                        </select> -->
+                    </label>
+                    <label for="numeroGuia">
+                        <span>Numero Guia:</span>
+                        <input type="text" name="numeroGuia" th:field="*{numeroGuia}" maxlength="10" >
+                    </label>
+                    <label for="estado">
+                        <span>Estado:</span>
+                        <select id="estado" name="estado" th:field="*{estado}" >
+                            <option value="" />
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="btn-submit">
+                        <p>Filtrar Entregas</p>
+                    </button>
+                </fieldset>
+            </form>
+        </dialog>
     <script>
         ini();
 
@@ -94,6 +167,14 @@
                 }
             });
         }
+        
+        function abrirDialogFiltro() {
+            document.getElementById("dialogFilter").showModal();
+        }
+        function cerrarDialogFiltro() {
+            document.getElementById("dialogFilter").close();
+        }
+        
     </script>
     </body>
 </html>

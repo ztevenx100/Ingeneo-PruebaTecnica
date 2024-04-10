@@ -7,7 +7,7 @@ import com.ingeneotest.empresa_gestion_logistica.models.Entrega;
 
 public interface EntregaControllerInterface {
 
-    String obtenerTodosEntregas(Model model);
+    String obtenerTodosEntregas(Model model, Entrega entregaFiltro);
 
     String obtenerEntregaPorId(String action, String id, Model model);
 
