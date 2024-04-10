@@ -7,7 +7,7 @@ import com.ingeneotest.empresa_gestion_logistica.models.Cliente;
 
 public interface ClienteControllerInterface {
 
-    String obtenerTodosClientes(Model model);
+    String obtenerTodosClientes(Model model, Cliente clienteFiltro);
 
     String obtenerClientePorId(String action, String id, Model model);
 

@@ -52,6 +52,9 @@
                 <aside class="panel">
                     <a type="button" class="btn-adicionar" th:href="@{/cliente/add/{id}(id='0')}" > Añadir </a>
                 </aside>
+                <aside class="panel filtro">
+                    <a type="button" class="btn-filtrar" id="btnFiltrar" onclick="abrirDialogFiltro()" > Filtrar </a>
+                </aside>
 
             </section>
 
@@ -70,6 +73,58 @@
             </aside>
 
         </main>
+
+        <dialog id="dialogFilter">
+            <form class="form-filtro" th:object="${clienteFiltro}" th:action="@{'/cliente'} " method="get">
+                <fieldset class="general-form">
+                    <legend class="legend-dialog">
+                        Filtro
+                        <button type="button" onclick="cerrarDialogFiltro()">X</button>
+                    </legend>
+                    <label for="id">
+                        <span>Documento:</span>
+                        <input type="text" name="id" th:field="*{id}" maxlength="50">
+                    </label>
+                    <label for="tipoId">
+                        <span>Tipo de documento:</span>
+                        <select id="tipoId" name="tipoId" th:field="*{tipoId}" >
+                            <option value="" />
+                            <option value="C">Cedula de ciudadania</option>
+                            <option value="N">NIT</option>
+                            <option value="E">Cedula de extranjeria</option>
+                        </select>
+                    </label>
+                    <label for="nombre">
+                        <span class="text-span">Nombre:</span>
+                        <input type="text" name="nombre" th:field="*{nombre}" maxlength="50">
+                    </label>
+                    <label for="telefono">
+                        <span>Telefono:</span>
+                        <input type="text" name="telefono" th:field="*{telefono}" oninput="validarCampoNumerico(this)" maxlength="20">
+                    </label>
+                    <label for="email">
+                        <span>Correo Electrónico:</span>
+                        <input type="email" name="email" th:field="*{email}" maxlength="50">
+                    </label>
+                    <label for="direccion">
+                        <span>Direccion:</span>
+                        <input type="text" name="direccion" th:field="*{direccion}" maxlength="50">
+                    </label>
+                    <label for="estado">
+                        <span>Estado:</span>
+                        <select id="estado" name="estado" th:field="*{estado}" >
+                            <option value="" />
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                            <option value="R">Retirado</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="btn-submit">
+                        <p>Filtrar Cliente</p>
+                    </button>
+                </fieldset>
+            </form>
+        </dialog>
     <script>
         ini();
 
@@ -109,6 +164,13 @@
                         break;
                 }
             });
+        }
+
+        function abrirDialogFiltro() {
+            document.getElementById("dialogFilter").showModal();
+        }
+        function cerrarDialogFiltro() {
+            document.getElementById("dialogFilter").close();
         }
     </script>
     </body>

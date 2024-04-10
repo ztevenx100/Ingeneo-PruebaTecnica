@@ -26,8 +26,8 @@
                             <input  type="hidden" name="action" th:value="${action}">
                             <label for="id">
                                 <span>Documento:</span>
-                                <input th:if="${action == 'add' }" type="text" th:field="*{id}" maxlength="50" required>
-                                <input th:unless="${action == 'add' }" type="text" th:field="*{id}" readonly>
+                                <input th:if="${action == 'add' }" type="text" name="id" th:field="*{id}" maxlength="50" required>
+                                <input th:unless="${action == 'add' }" type="text" name="id" th:field="*{id}" readonly>
                             </label>
                             <label for="tipoId">
                                 <span>Tipo de documento:</span>
@@ -40,19 +40,19 @@
                             </label>
                             <label for="nombre">
                                 <span class="text-span">Nombre:</span>
-                                <input type="text" th:field="*{nombre}" maxlength="50" required>
+                                <input type="text" name="nombre" th:field="*{nombre}" maxlength="50" required>
                             </label>
                             <label for="telefono">
                                 <span>Telefono:</span>
-                                <input type="text" th:field="*{telefono}" oninput="validarCampoNumerico(this)" maxlength="20" required>
+                                <input type="text" name="telefono" th:field="*{telefono}" oninput="validarCampoNumerico(this)" maxlength="20" required>
                             </label>
                             <label for="email">
                                 <span>Correo Electrónico:</span>
-                                <input type="email" th:field="*{email}" maxlength="50" required>
+                                <input type="email" name="email" th:field="*{email}" maxlength="50" required>
                             </label>
                             <label for="direccion">
                                 <span>Direccion:</span>
-                                <input type="text" th:field="*{direccion}" maxlength="50" required>
+                                <input type="text" name="direccion" th:field="*{direccion}" maxlength="50" required>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
