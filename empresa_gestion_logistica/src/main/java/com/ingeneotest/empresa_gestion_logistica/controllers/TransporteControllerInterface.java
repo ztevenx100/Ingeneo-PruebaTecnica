@@ -7,7 +7,7 @@ import com.ingeneotest.empresa_gestion_logistica.models.Transporte;
 
 public interface TransporteControllerInterface {
 
-    String obtenerTodosTransportes(Model model);
+    String obtenerTodosTransportes(Model model, Transporte transportesFiltro);
 
     String obtenerTransportePorId(String action, String id, Model model);
 

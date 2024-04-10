@@ -27,9 +27,9 @@
                             <input type="hidden" name="action" th:value="${action}">
                             
                             <label for="id">
-                                <span>Codigo:</span>
-                                <input th:if="${id == null }" type="text" th:field="*{id}" maxlength="36" required>
-                                <input th:unless="${id == null }" type="text" th:field="*{id}" readonly>
+                                <span>ID:</span>
+                                <input th:if="${id == null }" type="text" name="id" th:field="*{id}" maxlength="36" required>
+                                <input th:unless="${id == null }" type="text" name="id" th:field="*{id}" readonly>
                             </label>
                             <label for="tipo">
                                 <span>Tipo de Transporte:</span>
@@ -41,27 +41,28 @@
                             </label>
                             <label for="matricula">
                                 <span class="text-span">Matricula:</span>
-                                <input type="text" th:field="*{matricula}" onchange="validarFormato(this)" maxlength="50" required>
+                                <input type="text" name="matricula" th:field="*{matricula}" onchange="validarFormato(this)" maxlength="50" required>
                             </label>
                             <label for="marca">
                                 <span class="text-span">Marca:</span>
-                                <input type="text" th:field="*{marca}" maxlength="50" required>
+                                <input type="text" name="marca" th:field="*{marca}" maxlength="50" required>
                             </label>
                             <label for="modelo">
                                 <span class="text-span">Modelo:</span>
-                                <input type="text" th:field="*{modelo}" maxlength="50" required>
+                                <input type="text" name="modelo" th:field="*{modelo}" maxlength="50" required>
                             </label>
                             <label for="idResponsable">
                                 <span>Id Responsable:</span>
-                                <input type="text" th:field="*{idResponsable}" oninput="validarCampoNumerico(this)" maxlength="20" required>
+                                <input type="text" name="idResponsable" th:field="*{idResponsable}" oninput="validarCampoNumerico(this)" maxlength="20" required>
                             </label>
                             <label for="nomResponsable">
                                 <span class="text-span">Nombre responsable:</span>
-                                <input type="text" th:field="*{nomResponsable}" maxlength="50" required>
+                                <input type="text" name="nomResponsable" th:field="*{nomResponsable}" maxlength="50" required>
                             </label>
                             <label for="estado">
                                 <span>Estado:</span>
                                 <select id="estado" name="estado" th:field="*{estado}" required>
+                                    <option value="" />
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>

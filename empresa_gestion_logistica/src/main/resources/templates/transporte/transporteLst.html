@@ -54,6 +54,9 @@
                 <aside class="panel">
                     <a type="button" class="btn-adicionar" th:href="@{/transporte/add/{id}(id='0')}" > Añadir </a>
                 </aside>
+                <aside class="panel filtro">
+                    <a type="button" class="btn-filtrar" id="btnFiltrar" onclick="abrirDialogFiltro()" > Filtrar </a>
+                </aside>
 
             </section>
 
@@ -72,6 +75,60 @@
             </aside>
             
         </main>
+        
+        <dialog id="dialogFilter">
+            <form class="form-filtro" th:object="${transportesFiltro}" th:action="@{'/transporte'} " method="get">
+                <fieldset class="general-form">
+                    <legend class="legend-dialog">
+                        Filtro
+                        <button type="button" onclick="cerrarDialogFiltro()">X</button>
+                    </legend>
+                    <label for="id">
+                        <span>ID:</span>
+                        <input type="text" name="id" th:field="*{id}" maxlength="50">
+                    </label>
+                    <label for="tipo">
+                        <span>Tipo de Transporte:</span>
+                        <select id="tipo" name="tipo" th:field="*{tipo}" >
+                            <option value="" />
+                            <option value="M">Maritimo</option>
+                            <option value="T">Terrestre</option>
+                        </select>
+                    </label>
+                    <label for="matricula">
+                        <span class="text-span">Matricula:</span>
+                        <input type="text" name="matricula" th:field="*{matricula}" onchange="validarFormato(this)" maxlength="50" >
+                    </label>
+                    <label for="marca">
+                        <span class="text-span">Marca:</span>
+                        <input type="text" name="marca" th:field="*{marca}" maxlength="50" >
+                    </label>
+                    <label for="modelo">
+                        <span class="text-span">Modelo:</span>
+                        <input type="text" name="modelo" th:field="*{modelo}" maxlength="50" >
+                    </label>
+                    <label for="idResponsable">
+                        <span>Id Responsable:</span>
+                        <input type="text" name="idResponsable" th:field="*{idResponsable}" oninput="validarCampoNumerico(this)" maxlength="20" >
+                    </label>
+                    <label for="nomResponsable">
+                        <span class="text-span">Nombre responsable:</span>
+                        <input type="text" name="nomResponsable" th:field="*{nomResponsable}" maxlength="50" >
+                    </label>
+                    <label for="estado">
+                        <span>Estado:</span>
+                        <select id="estado" name="estado" th:field="*{estado}" >
+                            <option value="" />
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="btn-submit">
+                        <p>Filtrar Transportes</p>
+                    </button>
+                </fieldset>
+            </form>
+        </dialog>
     <script>
         ini();
 
@@ -106,6 +163,14 @@
                 }
             });
         }
+        
+        function abrirDialogFiltro() {
+            document.getElementById("dialogFilter").showModal();
+        }
+        function cerrarDialogFiltro() {
+            document.getElementById("dialogFilter").close();
+        }
+        
     </script>
     </body>
 </html>
