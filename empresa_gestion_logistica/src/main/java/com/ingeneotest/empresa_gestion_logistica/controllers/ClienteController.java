@@ -27,14 +27,17 @@ public class ClienteController implements ClienteControllerInterface {
 
     @Override
     @GetMapping("/cliente")
-    public String obtenerTodosClientes(Model model) {
+    public String obtenerTodosClientes(Model model, @ModelAttribute("clienteFiltro") Cliente clienteFiltro) {
         String path = "cliente/clienteLst";
 
         try {
-            List<Cliente> l = clienteService.obtenerTodosClientes();
+            System.out.println("clienteFiltro: " + clienteFiltro);
+            List<Cliente> l =  clienteService.obtenerClientesFiltados(clienteFiltro);
+            
             model.addAttribute("clientes", l);
             Cliente vo = new Cliente();
             model.addAttribute("clienteNuevo", vo);
+            model.addAttribute("clienteFiltro", vo);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));
             model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {

@@ -8,6 +8,8 @@ import com.ingeneotest.empresa_gestion_logistica.models.Almacen;
 public interface AlmacenServiceInterface {
 
     List<Almacen> obtenerTodosAlmacenes();
+
+    List<Almacen> obtenerAlmacenesFiltados(Almacen filtro);
     
     List<Almacen> obtenerAlmacenesPorEstados();
     

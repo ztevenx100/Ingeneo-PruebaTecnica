@@ -70,27 +70,27 @@
                             </label>
                             <label for="numeroGuia">
                                 <span>Numero Guia:</span>
-                                <input type="text" th:field="*{numeroGuia}" name="numeroGuia" maxlength="10" readonly required>
+                                <input type="text" name="numeroGuia" th:field="*{numeroGuia}" maxlength="10" readonly required>
                             </label>
                             <label for="fecRegistro">
                                 <span class="text-span">Fecha registro:</span>
-                                <input type="datetime-local" th:field="*{fecRegistro}" name="fecRegistro" readonly required>
+                                <input type="datetime-local" name="fecRegistro" th:field="*{fecRegistro}" readonly required>
                             </label>
                             <label for="fecEntrega">
                                 <span class="text-span">Fecha entrega:</span>
-                                <input type="datetime-local" th:field="*{fecEntrega}" name="fecEntrega" required>
+                                <input type="datetime-local" name="fecEntrega" th:field="*{fecEntrega}" required>
                             </label>
                             <label for="cantidad">
                                 <span class="text-span">Cantidad:</span>
-                                <input type="text" th:field="*{cantidad}" name="cantidad" oninput="validarCampoNumerico(this)" onchange="calcularDescuento()" maxlength="20" required>
+                                <input type="text" name="cantidad" th:field="*{cantidad}" oninput="validarCampoNumerico(this)" onchange="calcularDescuento()" maxlength="20" required>
                             </label>
                             <label for="valorTotal">
                                 <span class="text-span">Valor Total:</span>
-                                <input type="text" th:field="*{valorTotal}" name="valorTotal" oninput="validarCampoNumerico(this)" maxlength="20" readonly required>
+                                <input type="text" name="valorTotal" th:field="*{valorTotal}" oninput="validarCampoNumerico(this)" maxlength="20" readonly required>
                             </label>
                             <label for="valorDescuento">
                                 <span class="text-span">Descuento otorgado:</span>
-                                <input type="text" th:field="*{valorDescuento}" name="valorDescuento" oninput="validarCampoNumerico(this)" maxlength="20" readonly equired>
+                                <input type="text" name="valorDescuento" th:field="*{valorDescuento}" oninput="validarCampoNumerico(this)" maxlength="20" readonly equired>
                             </label>
                             <label for="totalDescuento">
                                 <span class="text-span">Total con descuento:</span>
@@ -99,6 +99,7 @@
                             <label for="estado">
                                 <span>Estado:</span>
                                 <select id="estado" name="estado" th:field="*{estado}" required>
+                                    <option value="" />
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>

@@ -7,7 +7,7 @@ import com.ingeneotest.empresa_gestion_logistica.models.Almacen;
 
 public interface AlmacenControllerInterface {
 
-    String obtenerTodosAlmacenes(Model model);
+    String obtenerTodosAlmacenes(Model model, Almacen almacenFiltro);
 
     String obtenerAlmacenPorId(String action, String id, Model model);
 

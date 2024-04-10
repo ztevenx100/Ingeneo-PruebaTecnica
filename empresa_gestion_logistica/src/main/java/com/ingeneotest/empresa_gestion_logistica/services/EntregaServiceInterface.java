@@ -9,6 +9,8 @@ public interface EntregaServiceInterface {
 
     List<Entrega> obtenerTodosEntregas();
 
+    List<Entrega> obtenerEntregasFiltados(Entrega filtro);
+
     Optional<Entrega> obtenerEntregaPorId(String id);
 
     Entrega guardarEntrega(Entrega entrega);

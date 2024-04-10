@@ -9,6 +9,8 @@ public interface ClienteServiceInterface {
 
     List<Cliente> obtenerTodosClientes();
 
+    List<Cliente> obtenerClientesFiltados(Cliente filtro);
+
     List<Cliente> obtenerClientesPorEstados();
     
     List<Cliente> obtenerClientesPorEstados(List<String> estados);

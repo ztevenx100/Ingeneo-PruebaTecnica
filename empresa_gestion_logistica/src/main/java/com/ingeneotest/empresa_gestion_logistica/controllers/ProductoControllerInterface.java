@@ -7,7 +7,7 @@ import com.ingeneotest.empresa_gestion_logistica.models.Producto;
 
 public interface ProductoControllerInterface {
 
-    String obtenerTodosProductos(Model model);
+    String obtenerTodosProductos(Model model, Producto productoFiltro);
 
     String obtenerProductoPorId(String action, String id, Model model);
 

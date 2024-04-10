@@ -34,15 +34,17 @@ public class TransporteController implements TransporteControllerInterface{
 
     @Override
     @GetMapping("/transporte")
-    public String obtenerTodosTransportes(Model model) {
+    public String obtenerTodosTransportes(Model model, @ModelAttribute("transportesFiltro") Transporte transportesFiltro) {
         String path = "transporte/transporteLst";
         System.out.println("get - obtenerTodosTransportes ");
 
         try {
-            List<Transporte> l = transporteService.obtenerTodosTransportes();
+            System.out.println("transportesFiltro: " + transportesFiltro);
+            List<Transporte> l = transporteService.obtenerTransportesFiltados(transportesFiltro);
             model.addAttribute("transportes", l);
             TransporteInterface vo = new Transporte();
             model.addAttribute("transporteNuevo", vo);
+            model.addAttribute("transportesFiltro", vo);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));
             model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {

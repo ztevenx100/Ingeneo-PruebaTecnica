@@ -87,6 +87,7 @@ table{
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     overflow-x: auto;
     border-collapse: collapse;
+    border-spacing: 0;
     & thead{
         background-color: var(--table-th-bg);
         color: var(--table-th-text);
@@ -98,7 +99,9 @@ table{
     & tbody{
         & td{
             padding: 0.5rem 0.25rem;
+            overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
             border: 1px solid var(--table-bg);
             border-bottom: 2px solid var(--table-border);
         }
@@ -198,6 +201,10 @@ aside.panel{
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+    &.filtro{
+        right: 10px;
+        bottom: 100px;
     }
 }
 
@@ -306,5 +313,28 @@ section.back-button{
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+}
+
+form.form-filtro{
+    background-color: var(--bento-card-bg);
+    padding: 2rem;
+    border: 1px solid var(--form-btn-bg);
+    & .legend-dialog{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        & button{
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            color: #aaa;
+            transition-property: background-color, color;
+            transition-duration: .5s;
+            transition-timing-function: ease;
+            &:hover{
+                background-color: var(--bg-second);
+                color: #FFF;
+            }
+        }
     }
 }
