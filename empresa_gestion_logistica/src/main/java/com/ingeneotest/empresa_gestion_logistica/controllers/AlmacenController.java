@@ -28,15 +28,18 @@ public class AlmacenController implements AlmacenControllerInterface{
 
     @Override
     @GetMapping("/almacen")
-    public String obtenerTodosAlmacenes(Model model) {
+    public String obtenerTodosAlmacenes(Model model, @ModelAttribute("almacenFiltro") Almacen almacenFiltro) {
         String path = "almacen/almacenLst";
         System.out.println("get - obtenerTodosAlmacenes ");
 
         try {
-            List<Almacen> l = almacenService.obtenerTodosAlmacenes();
+            System.out.println("almacenFiltro: " + almacenFiltro);
+            List<Almacen> l = almacenService.obtenerAlmacenesFiltados(almacenFiltro);
+            
             model.addAttribute("almacenes", l);
             Almacen vo = new Almacen();
             model.addAttribute("almacenNuevo", vo);
+            model.addAttribute("almacenFiltro", vo);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));
             model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {
