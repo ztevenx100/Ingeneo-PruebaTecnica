@@ -28,14 +28,16 @@ public class ProductoController implements ProductoControllerInterface{
 
     @Override
     @GetMapping("/producto")
-    public String obtenerTodosProductos(Model model) {
+    public String obtenerTodosProductos(Model model, @ModelAttribute("productoFiltro") Producto productoFiltro) {
         String path = "producto/productoLst";
 
         try {
-            List<Producto> l = productoService.obtenerTodosProductos();
+            System.out.println("productoFiltro: " + productoFiltro);
+            List<Producto> l =  productoService.obtenerProductosFiltados(productoFiltro);
             model.addAttribute("productos", l);
             Producto vo = new Producto();
             model.addAttribute("productoNuevo", vo);
+            model.addAttribute("productoFiltro", vo);
             model.addAttribute("notificacion", model.getAttribute("notificacion"));
             model.addAttribute("error", model.getAttribute("error"));
         } catch (Exception e) {
