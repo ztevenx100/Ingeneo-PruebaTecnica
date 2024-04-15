@@ -262,4 +262,78 @@ class EmpresaGestionLogisticaApplicationTests {
 		}
 	}
 
+	@Test
+	public void testCompleteTransporte() {
+		Playwright playwright = null;
+		Browser browser = null;
+		Page page = null;
+		
+		try {
+			playwright = Playwright.create();
+			browser = playwright.chromium().launch(
+				new BrowserType.LaunchOptions().setHeadless(false)
+			);
+			page = browser.newPage();
+
+			page.navigate("http://localhost:8081");
+			System.out.println(page.title());
+
+			ElementHandle button = page.querySelector("#btnMenuOptions");
+			button.hover();
+
+			//page.navigate("http://localhost:8081/cliente");
+			page.querySelector("a[href='/transporte']").click();
+
+			page.click(".btn-adicionar");
+			// LLenar formulrio
+			Random random = new Random();
+			long rndMatricula = random.nextLong(1000L) + 100;
+			int rndId = random.nextInt(900000000) + 100000000;
+			
+			String idValue = page.querySelector("#id").inputValue();
+			page.selectOption("#tipo", "T");
+			page.fill("#matricula", "fgh" + rndMatricula);
+			page.fill("#marca", "Suzuki");
+			page.fill("#modelo", "zxc5");
+			page.fill("#idResponsable", "" + rndId);
+			page.fill("#nomResponsable", "Representante 1");
+			page.selectOption("#estado", "A");
+			
+			page.click(".btn-submit");
+			page.click(".back-button");
+			page.waitForTimeout(3000);
+			
+			// Construir el selector CSS para seleccionar la fila que contenga el ID "idValue" en la primera columna
+			String boton = "table#tableTransporte tr[data-id=\"" + idValue + "\"] .btn-editar";
+			ElementHandle botonEditar = page.querySelector(boton);
+			botonEditar.click();
+			//page.waitForTimeout(3000);
+			page.fill("#nomResponsable", "Representante 2");
+			page.selectOption("#estado", "I");
+			page.click(".btn-submit");
+			page.click(".back-button");
+
+			page.waitForTimeout(3000);
+			
+			boton = "table#tableTransporte tr[data-id=\"" + idValue + "\"] .btn-eliminar";
+			ElementHandle botonEliminar = page.querySelector(boton);
+			page.onceDialog(dialog ->dialog.accept());
+			botonEliminar.click();
+			page.waitForTimeout(3000);
+
+			//page.pause();
+
+			page.waitForTimeout(5000);
+
+			page.waitForLoadState(LoadState.NETWORKIDLE);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			page.close();
+			browser.close();
+			playwright.close();
+		}
+	}
+
 }
