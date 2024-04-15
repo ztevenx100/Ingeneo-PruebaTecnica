@@ -82,8 +82,36 @@ class EmpresaGestionLogisticaApplicationTests {
 			page.fill("#email", "cliente1@falso.com");
 			page.fill("#direccion", "Calle 601 # 234 - 456");
 			page.selectOption("#estado", "A");
-
+			
 			page.click(".btn-submit");
+			page.click(".back-button");
+			page.waitForTimeout(3000);
+			
+			// Construir el selector CSS para seleccionar la fila que contenga el ID "codigoNumerico" en la primera columna
+			String boton = "table#tableCliente tr[data-id=\"" + codigoNumerico + "\"] .btn-editar";
+			ElementHandle botonEditar = page.querySelector(boton);
+			botonEditar.click();
+			//page.waitForTimeout(3000);
+			page.fill("#nombre", "Cliente 2");
+			page.selectOption("#estado", "I");
+			page.click(".btn-submit");
+			page.click(".back-button");
+
+			page.waitForTimeout(3000);
+			
+			boton = "table#tableCliente tr[data-id=\"" + codigoNumerico + "\"] .btn-eliminar";
+			ElementHandle botonEliminar = page.querySelector(boton);
+			botonEliminar.click();
+			page.waitForTimeout(3000);
+
+			page.pause();
+
+			// Obtener la fila a partir de la celda seleccionada
+			//ElementHandle fila = celda.parent();
+
+			// Encuentra el botón dentro de la fila y haz clic en él
+			//ElementHandle boton = fila.querySelector(".btn-editar");
+			//boton.click();
 
 			page.waitForTimeout(5000);
 
