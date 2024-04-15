@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="producto : ${productos}">
+                            <tr th:each="producto : ${productos}" th:attr="data-id=${producto.id}">
                                 <td th:text="${producto.id}"></td>
                                 <td th:text="${producto.tipo}"></td>
                                 <td th:text="${producto.nombre}"></td>

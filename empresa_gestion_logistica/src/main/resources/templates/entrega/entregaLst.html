@@ -36,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="entrega : ${entregas}">
+                            <tr th:each="entrega : ${entregas}" th:attr="data-id=${entrega.id}">
                                 <td th:text="${entrega.id}"></td>
                                 <td th:text="${entrega.cliente.id} + ' - ' + ${entrega.cliente.nombre}"></td>
                                 <td th:text="${entrega.producto.nombre}"></td>
