@@ -48,7 +48,7 @@ class EmpresaGestionLogisticaApplicationTests {
 	}
 
 	@Test
-	public void testCliente() {
+	public void testCompleteCliente() {
 		Playwright playwright = null;
 		Browser browser = null;
 		Page page = null;
@@ -121,7 +121,7 @@ class EmpresaGestionLogisticaApplicationTests {
 	}
 
 	@Test
-	public void testProducto() {
+	public void testCompleteProducto() {
 		Playwright playwright = null;
 		Browser browser = null;
 		Page page = null;
@@ -171,6 +171,77 @@ class EmpresaGestionLogisticaApplicationTests {
 			page.waitForTimeout(3000);
 			
 			boton = "table#tableProducto tr[data-id=\"" + idValue + "\"] .btn-eliminar";
+			ElementHandle botonEliminar = page.querySelector(boton);
+			page.onceDialog(dialog ->dialog.accept());
+			botonEliminar.click();
+			page.waitForTimeout(3000);
+
+			//page.pause();
+
+			page.waitForTimeout(5000);
+
+			page.waitForLoadState(LoadState.NETWORKIDLE);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			page.close();
+			browser.close();
+			playwright.close();
+		}
+	}
+
+	@Test
+	public void testCompleteAlmacen() {
+		Playwright playwright = null;
+		Browser browser = null;
+		Page page = null;
+		
+		try {
+			playwright = Playwright.create();
+			browser = playwright.chromium().launch(
+				new BrowserType.LaunchOptions().setHeadless(false)
+			);
+			page = browser.newPage();
+
+			page.navigate("http://localhost:8081");
+			System.out.println(page.title());
+
+			ElementHandle button = page.querySelector("#btnMenuOptions");
+			button.hover();
+
+			//page.navigate("http://localhost:8081/cliente");
+			page.querySelector("a[href='/almacen']").click();
+
+			page.click(".btn-adicionar");
+			// LLenar formulrio
+			Random random = new Random();
+			long rndValor = random.nextLong(100L) + 1;
+			
+			String idValue = page.querySelector("#id").inputValue();
+			page.selectOption("#tipo", "T");
+			page.fill("#nombre", "Almacen 1");
+			page.fill("#descripcion", "Descripcion de almacen");
+			page.fill("#direccion", "Calle 10 # 10 - " + rndValor);
+			page.selectOption("#estado", "A");
+			
+			page.click(".btn-submit");
+			page.click(".back-button");
+			page.waitForTimeout(3000);
+			
+			// Construir el selector CSS para seleccionar la fila que contenga el ID "idValue" en la primera columna
+			String boton = "table#tableAlmacen tr[data-id=\"" + idValue + "\"] .btn-editar";
+			ElementHandle botonEditar = page.querySelector(boton);
+			botonEditar.click();
+			//page.waitForTimeout(3000);
+			page.fill("#nombre", "Almacen 2");
+			page.selectOption("#estado", "I");
+			page.click(".btn-submit");
+			page.click(".back-button");
+
+			page.waitForTimeout(3000);
+			
+			boton = "table#tableAlmacen tr[data-id=\"" + idValue + "\"] .btn-eliminar";
 			ElementHandle botonEliminar = page.querySelector(boton);
 			page.onceDialog(dialog ->dialog.accept());
 			botonEliminar.click();
