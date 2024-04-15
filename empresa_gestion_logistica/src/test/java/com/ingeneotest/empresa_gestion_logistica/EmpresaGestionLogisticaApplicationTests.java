@@ -101,17 +101,82 @@ class EmpresaGestionLogisticaApplicationTests {
 			
 			boton = "table#tableCliente tr[data-id=\"" + codigoNumerico + "\"] .btn-eliminar";
 			ElementHandle botonEliminar = page.querySelector(boton);
+			page.onceDialog(dialog ->dialog.accept());
 			botonEliminar.click();
 			page.waitForTimeout(3000);
 
-			page.pause();
+			//page.pause();
 
-			// Obtener la fila a partir de la celda seleccionada
-			//ElementHandle fila = celda.parent();
+			page.waitForTimeout(5000);
 
-			// Encuentra el botón dentro de la fila y haz clic en él
-			//ElementHandle boton = fila.querySelector(".btn-editar");
-			//boton.click();
+			page.waitForLoadState(LoadState.NETWORKIDLE);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			page.close();
+			browser.close();
+			playwright.close();
+		}
+	}
+
+	@Test
+	public void testProducto() {
+		Playwright playwright = null;
+		Browser browser = null;
+		Page page = null;
+		
+		try {
+			playwright = Playwright.create();
+			browser = playwright.chromium().launch(
+				new BrowserType.LaunchOptions().setHeadless(false)
+			);
+			page = browser.newPage();
+
+			page.navigate("http://localhost:8081");
+			System.out.println(page.title());
+
+			ElementHandle button = page.querySelector("#btnMenuOptions");
+			button.hover();
+
+			//page.navigate("http://localhost:8081/cliente");
+			page.querySelector("a[href='/producto']").click();
+
+			page.click(".btn-adicionar");
+			// LLenar formulrio
+			Random random = new Random();
+			long rndValor = random.nextLong(90000L) + 1000;
+			
+			String idValue = page.querySelector("#id").inputValue();
+			page.selectOption("#tipo", "T");
+			page.fill("#nombre", "Producto 1");
+			page.fill("#cantidad", "1000");
+			page.fill("#valorUnitario", "" + rndValor);
+			page.selectOption("#estado", "A");
+			
+			page.click(".btn-submit");
+			page.click(".back-button");
+			page.waitForTimeout(3000);
+			
+			// Construir el selector CSS para seleccionar la fila que contenga el ID "idValue" en la primera columna
+			String boton = "table#tableProducto tr[data-id=\"" + idValue + "\"] .btn-editar";
+			ElementHandle botonEditar = page.querySelector(boton);
+			botonEditar.click();
+			//page.waitForTimeout(3000);
+			page.fill("#nombre", "Producto 2");
+			page.selectOption("#estado", "I");
+			page.click(".btn-submit");
+			page.click(".back-button");
+
+			page.waitForTimeout(3000);
+			
+			boton = "table#tableProducto tr[data-id=\"" + idValue + "\"] .btn-eliminar";
+			ElementHandle botonEliminar = page.querySelector(boton);
+			page.onceDialog(dialog ->dialog.accept());
+			botonEliminar.click();
+			page.waitForTimeout(3000);
+
+			//page.pause();
 
 			page.waitForTimeout(5000);
 
