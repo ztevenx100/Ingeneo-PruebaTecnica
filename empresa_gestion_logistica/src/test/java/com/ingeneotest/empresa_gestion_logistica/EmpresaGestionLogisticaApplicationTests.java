@@ -11,14 +11,13 @@ import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.SelectOption;
 
 @SpringBootTest
 class EmpresaGestionLogisticaApplicationTests {
 
-	@Test
-	void contextLoads() {
-
-	}
+	//@Test
+	//void contextLoads() {}
 
 	@Test
 	public void testLogin() {
@@ -316,6 +315,81 @@ class EmpresaGestionLogisticaApplicationTests {
 			page.waitForTimeout(3000);
 			
 			boton = "table#tableTransporte tr[data-id=\"" + idValue + "\"] .btn-eliminar";
+			ElementHandle botonEliminar = page.querySelector(boton);
+			page.onceDialog(dialog ->dialog.accept());
+			botonEliminar.click();
+			page.waitForTimeout(3000);
+
+			//page.pause();
+
+			page.waitForTimeout(5000);
+
+			page.waitForLoadState(LoadState.NETWORKIDLE);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			page.close();
+			browser.close();
+			playwright.close();
+		}
+	}
+
+	@Test
+	public void testCompleteEntrega() {
+		Playwright playwright = null;
+		Browser browser = null;
+		Page page = null;
+		
+		try {
+			playwright = Playwright.create();
+			browser = playwright.chromium().launch(
+				new BrowserType.LaunchOptions().setHeadless(false)
+			);
+			page = browser.newPage();
+
+			page.navigate("http://localhost:8081");
+			System.out.println(page.title());
+
+			ElementHandle button = page.querySelector("#btnMenuOptions");
+			button.hover();
+
+			//page.navigate("http://localhost:8081/cliente");
+			page.querySelector("a[href='/entrega']").click();
+
+			page.click(".btn-adicionar");
+			// LLenar formulrio
+			//Random random = new Random();
+			
+			String idValue = page.querySelector("#id").inputValue();
+			page.waitForSelector("#cliente");
+
+			page.selectOption("#cliente", new SelectOption[] { new SelectOption().setIndex(2) });
+			page.selectOption("#producto", new SelectOption[] { new SelectOption().setIndex(2) });
+			page.selectOption("#almacen", new SelectOption[] { new SelectOption().setIndex(1) });
+			page.selectOption("#transporte", new SelectOption[] { new SelectOption().setIndex(1) });
+
+			page.fill("#fecEntrega", "2024-06-15T11:30");
+			page.fill("#cantidad", String.valueOf(10d));
+
+			page.selectOption("#estado", "A");
+			
+			page.click(".btn-submit");
+			page.click(".back-button");
+			page.waitForTimeout(3000);
+			
+			// Construir el selector CSS para seleccionar la fila que contenga el ID "idValue" en la primera columna
+			String boton = "table#tableEntrega tr[data-id=\"" + idValue + "\"] .btn-editar";
+			ElementHandle botonEditar = page.querySelector(boton);
+			botonEditar.click();
+			//page.waitForTimeout(3000);
+			page.selectOption("#estado", "I");
+			page.click(".btn-submit");
+			page.click(".back-button");
+
+			page.waitForTimeout(3000);
+			
+			boton = "table#tableEntrega tr[data-id=\"" + idValue + "\"] .btn-eliminar";
 			ElementHandle botonEliminar = page.querySelector(boton);
 			page.onceDialog(dialog ->dialog.accept());
 			botonEliminar.click();
