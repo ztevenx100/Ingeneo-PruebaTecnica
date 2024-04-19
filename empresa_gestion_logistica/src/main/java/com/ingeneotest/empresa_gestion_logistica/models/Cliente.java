@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cli_cliente")
@@ -12,18 +15,24 @@ public class Cliente {
     @Id
     //@GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "cli_id", nullable = false)
+    @NotEmpty(message = "El ID no puede estar vacío")
+    @NotNull(message = "El ID no puede ser nulo")
     private String id;
     @Column(name = "cli_tipo_id", nullable = false)
+    @NotEmpty(message = "El tipo de ID no puede estar vacío")
     private String tipoId;
     @Column(name = "cli_nombre", nullable = false)
+    @NotEmpty(message = "El nombre no puede estar vacío")
     private String nombre;
     @Column(name = "cli_telefono")
     private String telefono;
+    @Email(message = "El formato del correo electrónico no es válido")
     @Column(name = "cli_email", nullable = false)
     private String email;
     @Column(name = "cli_direccion")
     private String direccion;
     @Column(name = "cli_estado", nullable = false, columnDefinition = "text default 'A'")
+    @NotEmpty(message = "El estado no puede estar vacío")
     private String estado;
     
     public Cliente() {

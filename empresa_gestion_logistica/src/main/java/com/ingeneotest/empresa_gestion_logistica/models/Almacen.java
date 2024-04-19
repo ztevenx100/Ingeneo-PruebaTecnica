@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "alm_almacen")
@@ -13,6 +15,8 @@ public class Almacen {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "alm_id", nullable = false)
+    @NotEmpty(message = "El ID no puede estar vacío")
+    @NotNull(message = "El ID no puede ser nulo")
     private String id;
     @Column(name = "alm_tipo", nullable = false)
     private String tipo;

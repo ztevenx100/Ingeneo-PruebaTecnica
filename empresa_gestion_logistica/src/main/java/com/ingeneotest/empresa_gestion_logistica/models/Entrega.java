@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "ent_entrega")
@@ -17,6 +19,8 @@ public class Entrega {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ent_id", nullable = false)
+    @NotEmpty(message = "El ID no puede estar vacío")
+    @NotNull(message = "El ID no puede ser nulo")
     private String id;
     @Column(name = "ent_tipo", nullable = false, columnDefinition = "text default 'T' ")
     private String tipo;

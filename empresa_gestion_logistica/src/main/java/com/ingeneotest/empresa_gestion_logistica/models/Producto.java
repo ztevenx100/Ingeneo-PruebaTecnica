@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pro_producto")
@@ -12,6 +14,8 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @NotEmpty(message = "El ID no puede estar vacío")
+    @NotNull(message = "El ID no puede ser nulo")
     @Column(name = "pro_id", nullable = false)
     private String id;
     @Column(name = "pro_tipo", nullable = false)
