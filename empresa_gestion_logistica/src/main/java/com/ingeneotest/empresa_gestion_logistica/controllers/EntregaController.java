@@ -59,7 +59,7 @@ public class EntregaController implements EntregaControllerInterface {
     @Override
     @GetMapping("/entrega")
     public String obtenerTodosEntregas(Model model, @ModelAttribute("entregaFiltro") Entrega entregaFiltro) {
-        String path = "Entrega/EntregaLst";
+        String path = "entrega/entregaLst";
 
         try {
             System.out.println("entregaFiltro: " + entregaFiltro);
