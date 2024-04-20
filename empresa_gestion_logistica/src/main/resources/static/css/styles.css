@@ -72,10 +72,12 @@ footer{
     & section{
         width: 100%;
         &.bento-box{
-            display: flex;
-            justify-content: center;
-            column-gap: 10px;
             margin-bottom: 0;
+            & address{
+                display: flex;
+                justify-content: center;
+                column-gap: 10px;
+            } 
         }
     }
     & .footer-icon{
